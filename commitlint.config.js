@@ -19,10 +19,7 @@ module.exports = {
             /^((feat)|(test)|(build)|(chore)|(ci)|(docs)|(fix)|(perf)|(refactor)|(style))\(((evv-\d{1,4})|(EVV-\d{1,4}))\):/gm
           )
         ) {
-          return [
-            false,
-            `the scope must follow the pattern Ticket = "fix(MOMX-153):commit example"`
-          ]
+          return [false, `the scope must follow the pattern Ticket = "fix(evv-153):commit example"`]
         }
         return [true]
       }
