@@ -1,4 +1,10 @@
 {
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "nodenext"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"],
   "files": [],
   "references": [
     {

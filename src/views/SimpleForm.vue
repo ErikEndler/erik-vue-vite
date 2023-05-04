@@ -40,8 +40,8 @@
               success-message="Glad you remembered it!"
             />
 
-            <button class="submit-btn" type="submit">Submit</button></Form
-          >
+            <button class="submit-btn" type="submit">Submit</button>
+          </Form>
         </div>
       </div>
     </div>
