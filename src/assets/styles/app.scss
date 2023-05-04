@@ -4,7 +4,8 @@
 
 body {
   font-family: Poppins;
-  background-color: cadetblue;
+  background-color: var(--background-dark);
+  color: var(--text-dark-1);
   min-height: 100vh;
   transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;

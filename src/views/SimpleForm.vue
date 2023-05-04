@@ -97,6 +97,7 @@ const schema = Yup.object().shape({
 .card {
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 5px 7px 3px;
+  background-color: var(--background-dark-3);
 }
 
 p {
