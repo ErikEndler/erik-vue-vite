@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue'
 import router from '../router'
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 
 const state = reactive({
   showNavBar: false
@@ -18,9 +19,10 @@ function clickNavBar() {
 const show = computed(() => (state.showNavBar ? 'show' : ''))
 const collapse = computed(() => (state.showNavBar ? '' : 'collapse'))
 </script>
+
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg bg-dark">
+    <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
       <div class="container-fluid">
         <button
           class="navbar-toggler"
@@ -42,6 +44,9 @@ const collapse = computed(() => (state.showNavBar ? '' : 'collapse'))
             <li class="nav-item">
               <a class="nav-link" @click="goSimpleForm()">Simple Form</a>
             </li>
+            <li class="nav-item">
+              <LanguageSwitcher></LanguageSwitcher>
+            </li>
           </ul>
           <div class="d-flex">
             <input
@@ -59,6 +64,9 @@ const collapse = computed(() => (state.showNavBar ? '' : 'collapse'))
 </template>
 
 <style scoped>
+.nav-item {
+  margin: auto;
+}
 a {
   cursor: pointer;
   color: var(--text-dark-2);
@@ -68,5 +76,8 @@ a {
 }
 a:hover {
   color: gold;
+}
+.navbar-toggler-icon {
+  color: var(--text-dark-2);
 }
 </style>

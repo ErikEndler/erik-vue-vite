@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "nodenext"
+    "module": "nodenext",
+    "resolveJsonModule": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.json"],
   "exclude": ["node_modules"],
   "files": [],
   "references": [

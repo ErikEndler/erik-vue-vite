@@ -10,6 +10,7 @@ function goSimpleForm() {
   <div class="pagina">
     <div id="title" class="center"><h1>Welcome to Erik's vue3 project</h1></div>
     <div class="about">
+      <p>{{ $t('about.donations', { donations: $n(1456, 'currencyFormat') }) }}</p>
       <p>This project is intended for study and improvement in Vue3 and front-end skills.</p>
       <p>The project uses Vue 3 with Vite with Bootstrap 5.2 using TypeScript.</p>
       <p>Used Pinia to access store.</p>
