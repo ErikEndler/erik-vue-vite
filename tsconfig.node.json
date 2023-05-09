@@ -5,7 +5,8 @@
     "composite": true,
     "types": ["node"],
     "target": "esnext",
-    "module": "nodenext",
+    "module": "esnext",
+    "moduleResolution": "Node",
     "resolveJsonModule": true
   }
 }

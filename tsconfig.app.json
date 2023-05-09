@@ -1,10 +1,12 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "extends": ["@tsconfig/node18/tsconfig.json", "@vue/tsconfig/tsconfig.json"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "src/**/*.json"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
+    "types": ["node"],
     "target": "esnext",
-    "module": "nodenext",
+    "module": "esnext",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "composite": true,
     "baseUrl": ".",

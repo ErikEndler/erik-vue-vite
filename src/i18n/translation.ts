@@ -10,18 +10,18 @@ const Trans = {
     return import.meta.env.VITE_SUPPORTED_LOCALES.split(',')
   },
 
-  set currentLocale(newLocale) {
+  set currentLocale(newLocale: string) {
     i18n.global.locale.value = newLocale
   },
 
-  async switchLanguage(newLocale) {
+  async switchLanguage(newLocale: string) {
     await Trans.loadLocaleMessages(newLocale)
     Trans.currentLocale = newLocale
-    document.querySelector('html').setAttribute('lang', newLocale)
+    document.querySelector('html')?.setAttribute('lang', newLocale)
     localStorage.setItem('user-locale', newLocale)
   },
 
-  async loadLocaleMessages(locale) {
+  async loadLocaleMessages(locale: string) {
     if (!i18n.global.availableLocales.includes(locale)) {
       const messages = await import(`@/i18n/locales/${locale}.json`)
       i18n.global.setLocaleMessage(locale, messages.default)
