@@ -3,6 +3,7 @@
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "src/**/*.json"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
+    "lib": ["es5", "dom"],
     "types": ["node"],
     "target": "esnext",
     "module": "esnext",

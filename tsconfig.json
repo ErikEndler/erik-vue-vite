@@ -3,7 +3,8 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "Node",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "lib": ["es5", "dom"]
   },
   "include": ["src/**/*.json"],
   "exclude": ["node_modules"],

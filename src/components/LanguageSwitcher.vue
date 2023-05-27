@@ -6,8 +6,8 @@ const { t, locale } = useI18n()
 
 const supportedLocales = Tr.supportedLocales
 
-const switchLanguage = async (event) => {
-  const newLocale = event.target.value
+const switchLanguage = async (event: Event) => {
+  const newLocale = (event.target as HTMLInputElement).value
   await Tr.switchLanguage(newLocale)
 }
 </script>

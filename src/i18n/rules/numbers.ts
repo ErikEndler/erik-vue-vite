@@ -5,10 +5,10 @@ export default {
       currency: 'USD'
     }
   },
-  ru: {
+  pt: {
     currencyFormat: {
       style: 'currency',
-      currency: 'RUB'
+      currency: 'BRL'
     }
   }
 }

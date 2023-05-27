@@ -11,42 +11,48 @@ function goSimpleForm() {
     <div id="title" class="center"><h1>Welcome to Erik's vue3 project</h1></div>
     <div class="about">
       <p>{{ $t('about.donations', { donations: $n(1456, 'currencyFormat') }) }}</p>
-      <p>This project is intended for study and improvement in Vue3 and front-end skills.</p>
-      <p>The project uses Vue 3 with Vite with Bootstrap 5.2 using TypeScript.</p>
-      <p>Used Pinia to access store.</p>
+      <p>{{ $t('home.description.p1') }}</p>
+      <p>{{ $t('home.description.p2', { bootstrap: '5.2' }) }}</p>
+      <p>{{ $t('home.description.p3') }}</p>
     </div>
     <div>
       <div class="main-card">
         <div class="my-cards">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Simple Form</h5>
+              <h5 class="card-title">{{ $t('home.card1.title') }}</h5>
               <p class="card-text">
-                Here you will see a simple form that uses vee-validate and yup.
+                {{ $t('home.card1.description') }}
               </p>
-              <button class="btn btn-primary" @click="goSimpleForm()">Go Simple Form</button>
+              <button class="btn btn-primary" @click="goSimpleForm()">
+                {{ $t('home.card1.button') }}
+              </button>
             </div>
           </div>
         </div>
         <div class="my-cards">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
+              <h5 class="card-title">{{ $t('home.card2.title') }}</h5>
               <p class="card-text">
-                With supporting text below as a natural lead-in to additional content.
+                {{ $t('home.card2.description') }}
               </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <button class="btn btn-primary">
+                {{ $t('home.card2.button') }}
+              </button>
             </div>
           </div>
         </div>
         <div class="my-cards">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
+              <h5 class="card-title">{{ $t('home.card2.title') }}</h5>
               <p class="card-text">
-                With supporting text below as a natural lead-in to additional content.
+                {{ $t('home.card2.description') }}
               </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <button class="btn btn-primary">
+                {{ $t('home.card2.button') }}
+              </button>
             </div>
           </div>
         </div>

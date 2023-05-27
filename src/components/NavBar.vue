@@ -16,7 +16,7 @@ function goSimpleForm() {
 function clickNavBar() {
   state.showNavBar = !state.showNavBar
 }
-const show = computed(() => (state.showNavBar ? 'show' : ''))
+// const show = computed(() => (state.showNavBar ? 'show' : ''))
 const collapse = computed(() => (state.showNavBar ? '' : 'collapse'))
 </script>
 
@@ -39,10 +39,10 @@ const collapse = computed(() => (state.showNavBar ? '' : 'collapse'))
         <div class="navbar-collapse" :class="collapse" id="navbarTogglerDemo01" style="">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" @click="goHome()">Home</a>
+              <a class="nav-link" aria-current="page" @click="goHome()">{{ $t('nav.home') }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" @click="goSimpleForm()">Simple Form</a>
+              <a class="nav-link" @click="goSimpleForm()">{{ $t('nav.simple-form') }}</a>
             </li>
             <li class="nav-item">
               <LanguageSwitcher></LanguageSwitcher>
@@ -52,10 +52,10 @@ const collapse = computed(() => (state.showNavBar ? '' : 'collapse'))
             <input
               class="form-control me-2"
               type="search"
-              placeholder="Search"
+              :placeholder="$t('nav.search')"
               aria-label="Search"
             />
-            <button class="btn btn-outline-success">Search</button>
+            <button class="btn btn-outline-success">{{ $t('nav.search') }}</button>
           </div>
         </div>
       </div>

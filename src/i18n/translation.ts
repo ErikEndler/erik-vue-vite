@@ -10,6 +10,10 @@ const Trans = {
     return import.meta.env.VITE_SUPPORTED_LOCALES.split(',')
   },
 
+  get currentLocale() {
+    return i18n.global.locale.value
+  },
+
   set currentLocale(newLocale: string) {
     i18n.global.locale.value = newLocale
   },
