@@ -12,36 +12,36 @@
         <div class="card p-3">
           <Form @submit="onSubmit" :validation-schema="schema" @invalid-submit="onInvalidSubmit">
             <TextInput
-              name="name"
+              nameProp="name"
               type="text"
-              label="Full Name"
-              placeholder="Your Name"
-              success-message="Nice to meet you!"
+              :label="$t('simpleForm.fields.label.name')"
+              :placeholder="$t('simpleForm.fields.placeholder.name')"
+              :success-message="$t('simpleForm.fields.successMessage.name')"
             />
             <TextInput
-              name="email"
+              nameProp="email"
               type="email"
-              label="E-mail"
-              placeholder="Your email address"
-              success-message="Got it, we won't spam you!"
+              :label="$t('simpleForm.fields.label.email')"
+              :placeholder="$t('simpleForm.fields.placeholder.email')"
+              :success-message="$t('simpleForm.fields.successMessage.email')"
             />
             <TextInput
-              name="password"
+              nameProp="password"
               type="password"
-              label="Password"
-              placeholder="Your password"
-              success-message="Nice and secure!"
+              :label="$t('simpleForm.fields.label.password')"
+              :placeholder="$t('simpleForm.fields.placeholder.password')"
+              :success-message="$t('simpleForm.fields.successMessage.password')"
             />
             <TextInput
-              name="confirm_password"
+              nameProp="confirm_password"
               type="password"
-              label="Confirm Password"
-              placeholder="Type it again"
-              success-message="Glad you remembered it!"
+              :label="$t('simpleForm.fields.label.confirmPassword')"
+              :placeholder="$t('simpleForm.fields.placeholder.confirmPassword')"
+              :success-message="$t('simpleForm.fields.successMessage.confirmPassword')"
             />
 
-            <button class="submit-btn" type="submit">Submit</button></Form
-          >
+            <button class="submit-btn" type="submit">Submit</button>
+          </Form>
         </div>
       </div>
     </div>
@@ -52,6 +52,13 @@
 import * as Yup from 'yup'
 import { Form } from 'vee-validate'
 import TextInput from '../components/TextInput.vue'
+import { useI18n } from 'vue-i18n'
+import { setLocale } from 'yup'
+import { watch } from 'vue'
+import Tr from '@/i18n/translation'
+import '@/i18n/rules/validators.ts' //F:\dev\erik-vue-vite\src\i18n\rules\validators.ts
+
+const { t } = useI18n()
 
 function onSubmit(values: any) {
   alert(JSON.stringify(values, null, 2))
@@ -65,14 +72,51 @@ function onInvalidSubmit() {
   }, 1000)
 }
 
-const schema = Yup.object().shape({
-  name: Yup.string().required('Name'),
-  email: Yup.string().email().required('Email'),
-  password: Yup.string().min(6).required('Password'),
-  confirm_password: Yup.string()
-    .required('Confirm Password')
-    .oneOf([Yup.ref('password')], 'Passwords do not match')
+setLocale({
+  // use constant translation keys for messages without values
+  mixed: {
+    default: 'field_invalid'
+    //required:((msg)=>())
+  },
+  // use functions to generate an error object that includes the value from the schema
+  string: {
+    min: ({ min }) => t('simpleForm.fields.errorMessage.passwordMin', { min: min }),
+    max: ({ max }) => ({ key: 'field_too_big', values: { max } })
+  }
 })
+
+let schema = Yup.object().shape({
+  name: Yup.string().required(() => t('simpleForm.fields.errorMessage.name')),
+  email: Yup.string()
+    .email()
+    .required(() => t('simpleForm.fields.errorMessage.email')),
+  password: Yup.string()
+    .min(6)
+    .required(() => t('simpleForm.fields.errorMessage.password')),
+  confirm_password: Yup.string()
+    .required(() => t('simpleForm.fields.errorMessage.confirmPassword'))
+    .oneOf([Yup.ref('password')], () => t('simpleForm.fields.errorMessage.passwordNotMatch'))
+})
+
+// watch(
+//   () => Tr.currentLocale,
+//   () => {
+//     console.log('Tr.currentLocale = ', Tr.currentLocale)
+//     schema = Yup.object().shape({
+//       name: Yup.string().required(() => t('simpleForm.fields.errorMessage.name')),
+//       email: Yup.string()
+//         .email()
+//         .required(() => t('simpleForm.fields.errorMessage.email')),
+//       password: Yup.string()
+//         .min(6)
+//         .required(() => t('simpleForm.fields.errorMessage.password')),
+//       confirm_password: Yup.string()
+//         .required(() => t('simpleForm.fields.errorMessage.confirmPassword'))
+//         .oneOf([Yup.ref('password')])
+//     })
+//     console.log()
+//   }
+// )
 </script>
 
 <style scoped>
@@ -97,6 +141,7 @@ const schema = Yup.object().shape({
 .card {
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 5px 7px 3px;
+  background-color: var(--background-dark-3);
 }
 
 p {
