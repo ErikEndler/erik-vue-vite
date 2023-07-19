@@ -37,7 +37,7 @@ watch(
     </p>
     <div class="card card-1 row">
       <div class="row">
-        <div class="col-6">
+        <div class="col-12 col-lg-6">
           <div class="card-2 card">
             <Form>
               <TextInput
@@ -100,6 +100,7 @@ watch(
                     50%
                   </button>
                 </div>
+                <!-- abrir modal ao clicar custo me escolher porcentagem -->
                 <div class="col">
                   <input
                     placeholder="Custom"
@@ -121,14 +122,14 @@ watch(
             </Form>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-lg-6">
           <div class="card card-3">
             <div class="row my-5">
               <div class="col ms-4 center result-label">
                 Tip Amount <br />
                 /person
               </div>
-              <div class="col text-end me-4 result">
+              <div class="col text-coin me-4 result">
                 {{ $n(state.tipPerson, 'currencyFormat') }}
               </div>
             </div>
@@ -137,7 +138,7 @@ watch(
                 Total <br />
                 /person
               </div>
-              <div class="center col me-3 text-end result">
+              <div class="col text-coin me-3 result">
                 {{ $n(state.personTotal, 'currencyFormat') }}
               </div>
             </div>
@@ -208,13 +209,14 @@ body {
   border-style: none;
 }
 .card-3 {
-  width: 105%;
+  width: 100%;
   height: 100%;
   background-color: var(--Very-dark-cyan);
 }
 .card-1 {
-  width: 750px;
+  width: 75%;
   max-width: 750px;
+  min-width: 375px;
   border-style: none;
   padding-left: 1rem;
   padding-top: 1.5rem;
@@ -229,5 +231,8 @@ body {
 .result-label {
   color: var(--Light-grayish-cyan);
   font-size: 15px;
+}
+.text-coin {
+  text-align: center !important;
 }
 </style>
