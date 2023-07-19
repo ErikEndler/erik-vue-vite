@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toRef, watch } from 'vue'
+import { computed, toRef, watch } from 'vue'
 import { useField } from 'vee-validate'
 import Tr from '@/i18n/translation'
 
@@ -9,8 +9,8 @@ const props = defineProps({
     default: 'text'
   },
   value: {
-    type: String,
-    default: ''
+    type: [String, Number],
+    default: null
   },
   nameProp: {
     type: String,
@@ -27,8 +27,21 @@ const props = defineProps({
   placeholder: {
     type: String,
     default: ''
+  },
+  classInput: {
+    type: String,
+    default: ''
+  },
+  classLabel: {
+    type: String,
+    default: ''
+  },
+  preventPaste: {
+    type: Boolean,
+    default: false
   }
 })
+const emit = defineEmits(['update:value'])
 
 // use `toRef` to create reactive references to `name` prop which is passed to `useField`
 // this is important because vee-validte needs to know if the field name changes
@@ -47,6 +60,22 @@ const {
 } = useField(name, undefined, {
   initialValue: props.value
 })
+const computedValidate = computed(() => {
+  return {
+    blur: handleChange,
+    change: [handleChange],
+    input: [updateValue, handleChange],
+    paste: colar
+  }
+})
+function colar(event: Event) {
+  if (props.preventPaste) {
+    event.preventDefault()
+  }
+}
+function updateValue(event: Event) {
+  emit('update:value', (event.target as HTMLInputElement).value)
+}
 watch(
   () => Tr.currentLocale,
   () => {
@@ -56,9 +85,11 @@ watch(
 </script>
 
 <template>
-  <div class="TextInput" :class="{ 'has-error': !!errorMessage, success: meta.valid }">
-    <label :for="name">{{ label }}</label>
+  <div class="textInput" :class="{ 'has-error': !!errorMessage, success: meta.valid }">
+    <label :class="classLabel" :for="name">{{ label }}</label>
     <input
+      v-on="computedValidate"
+      :class="classInput"
       :name="nameProp"
       :id="name"
       :type="type"
@@ -77,7 +108,7 @@ watch(
 </template>
 
 <style scoped>
-.TextInput {
+.textInput {
   position: relative;
   margin-bottom: calc(1em * 1.5);
   width: 100%;
@@ -105,7 +136,6 @@ input {
 input:focus {
   border-color: var(--Accent-Blue);
 }
-
 .help-message {
   font-weight: 700;
   /* position: absolute; */
@@ -115,37 +145,30 @@ input:focus {
   margin: 0;
   font-size: 14px;
 }
-
-.TextInput.has-error {
+.textInput.has-error {
   margin-bottom: calc(0.3em);
 }
-
-.TextInput.has-error input {
+.textInput.has-error input {
   background-color: var(--error-bg-color);
   color: var(--Primary-Red);
 }
-
-.TextInput.has-error input:focus {
+.textInput.has-error input:focus {
   border-color: var(--Primary-Red);
 }
-
-.TextInput.has-error .help-message {
+.textInput.has-error .help-message {
   color: var(--Primary-Red);
 }
-
-.TextInput.success {
+.textInput.success {
   margin-bottom: calc(0.3em);
 }
-.TextInput.success input {
+.textInput.success input {
   background-color: var(--success-bg-color);
   color: var(--success-color);
 }
-
-.TextInput.success input:focus {
+.textInput.success input:focus {
   border-color: var(--success-color);
 }
-
-.TextInput.success .help-message {
+.textInput.success .help-message {
   color: var(--success-color);
 }
 </style>

@@ -10,9 +10,10 @@ function goSimpleForm() {
   <div class="pagina">
     <div id="title" class="center"><h1>Welcome to Erik's vue3 project</h1></div>
     <div class="about">
+      <p>{{ $n(1456, 'currencyFormat') }}</p>
       <p>{{ $t('about.donations', { donations: $n(1456, 'currencyFormat') }) }}</p>
       <p>{{ $t('home.description.p1') }}</p>
-      <p>{{ $t('home.description.p2', { bootstrap: '5.2' }) }}</p>
+      <p>{{ $t('home.description.p2', { bootstrap: '5.3' }) }}</p>
       <p>{{ $t('home.description.p3') }}</p>
     </div>
     <div>
@@ -57,30 +58,6 @@ function goSimpleForm() {
           </div>
         </div>
       </div>
-      <!-- <div class="row">
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Simple Form</h5>
-              <p class="card-text">
-                Here you will see a simple form that uses vee-validate and yup.
-              </p>
-              <button class="btn btn-primary" @click="goSimpleForm()">Go Simple Form</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">
-                With supporting text below as a natural lead-in to additional content.
-              </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -98,8 +75,9 @@ function goSimpleForm() {
 }
 .card {
   height: 100%;
-  background-color: var(--background-dark-2);
+  background-color: var(--background-dark-2) !important;
   border-radius: 1em;
+  color: var(--text-dark-1);
 }
 .about {
   text-align: center;
@@ -107,8 +85,5 @@ function goSimpleForm() {
   padding: 1rem;
   box-shadow: 0px 0px 8px 2px #2c3e50;
   border-radius: 1em;
-  // border-style: solid;
-  // border-radius: 2em;
-  // border-width: 0.005rem;
 }
 </style>

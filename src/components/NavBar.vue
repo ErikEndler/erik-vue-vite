@@ -7,12 +7,10 @@ const state = reactive({
   showNavBar: false
 })
 
-function goHome() {
-  router.push({ name: 'home' })
+function goTo(destiny: string) {
+  router.push({ name: destiny })
 }
-function goSimpleForm() {
-  router.push({ name: 'simpleForm' })
-}
+
 function clickNavBar() {
   state.showNavBar = !state.showNavBar
 }
@@ -39,10 +37,13 @@ const collapse = computed(() => (state.showNavBar ? '' : 'collapse'))
         <div class="navbar-collapse" :class="collapse" id="navbarTogglerDemo01" style="">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" @click="goHome()">{{ $t('nav.home') }}</a>
+              <a class="nav-link" aria-current="page" @click="goTo('Home')">{{ $t('nav.home') }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" @click="goSimpleForm()">{{ $t('nav.simple-form') }}</a>
+              <a class="nav-link" @click="goTo('SimpleForm')">{{ $t('nav.simple-form') }}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" @click="goTo('TipCalculator')">Tip Calculator</a>
             </li>
             <li class="nav-item">
               <LanguageSwitcher></LanguageSwitcher>
