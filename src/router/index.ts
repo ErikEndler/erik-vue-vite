@@ -6,7 +6,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: HomeView
     },
     {
@@ -19,11 +19,19 @@ const router = createRouter({
     },
     {
       path: '/simple-form',
-      name: 'simpleForm',
+      name: 'SimpleForm',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "SimpleForm" */ '../views/SimpleForm.vue')
+    },
+    {
+      path: '/tip-calculator',
+      name: 'TipCalculator',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "TipCalculator" */ '../views/TipCalculator.vue')
     }
   ]
 })
