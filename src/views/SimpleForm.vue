@@ -4,7 +4,7 @@ import { Form } from 'vee-validate'
 import TextInput from '../components/TextInput.vue'
 import { useI18n } from 'vue-i18n'
 import { setLocale } from 'yup'
-import '@/i18n/rules/validators.ts'
+import '@/i18n/rules/validators'
 
 const { t } = useI18n()
 
