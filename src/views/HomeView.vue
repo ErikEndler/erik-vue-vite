@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import router from '../router'
 
-function goSimpleForm() {
-  router.push({ name: 'simpleForm' })
+function goTo(destiny: string) {
+  router.push({ name: destiny })
 }
 </script>
 
@@ -25,7 +25,7 @@ function goSimpleForm() {
               <p class="card-text">
                 {{ $t('home.card1.description') }}
               </p>
-              <button class="btn btn-primary" @click="goSimpleForm()">
+              <button class="btn btn-primary" @click="goTo('Home')">
                 {{ $t('home.card1.button') }}
               </button>
             </div>

@@ -47,6 +47,7 @@ const emit = defineEmits(['update:value'])
 // this is important because vee-validte needs to know if the field name changes
 // https://vee-validate.logaretm.com/v4/guide/composition-api/caveats
 const name = toRef(props, 'nameProp')
+const propsLocal = toRef(props)
 
 // we don't provide any rules here because we are using form-level validation
 // https://vee-validate.logaretm.com/v4/guide/validation#form-level-validation
@@ -58,7 +59,7 @@ const {
   handleChange,
   meta
 } = useField(name, undefined, {
-  initialValue: props.value
+  initialValue: propsLocal.value.value
 })
 const computedValidate = computed(() => {
   return {
@@ -129,7 +130,9 @@ input {
   outline: none;
   background-color: transparent;
   width: 100%;
-  transition: border-color 0.3s ease-in-out, color 0.3s ease-in-out,
+  transition:
+    border-color 0.3s ease-in-out,
+    color 0.3s ease-in-out,
     background-color 0.3s ease-in-out;
 }
 

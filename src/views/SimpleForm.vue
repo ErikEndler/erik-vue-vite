@@ -4,7 +4,17 @@ import { Form } from 'vee-validate'
 import TextInput from '../components/TextInput.vue'
 import { useI18n } from 'vue-i18n'
 import { setLocale } from 'yup'
-import '@/i18n/rules/validators.ts'
+import '@/i18n/rules/validators'
+import ModalConfirme from '@/components/modals/ModalConfirme.vue'
+import { markRaw } from 'vue'
+import { useModal } from '@/composables/useModal'
+
+const modal = useModal()
+
+const openModal = () => {
+  modal.component.value = markRaw(ModalConfirme)
+  modal.showModal()
+}
 
 const { t } = useI18n()
 
@@ -42,6 +52,16 @@ let schema = Yup.object().shape({
 </script>
 <template>
   <div class="body w-100 p-5 center">
+    <Teleport to="#modal">
+      <!-- <ModalConfirme :exibir="modal.show.value" @fechar-modal="modal.hideModal" /> -->
+      <component
+        :is="modal.component.value"
+        :exibir="modal.show.value"
+        @fechar-modal="modal.hideModal"
+      />
+    </Teleport>
+    <button @click="openModal" type="button" class="btn btn-primary">Launch demo modal</button>
+
     <div class="row align-items-center teste">
       <div class="col align-self-center text-center">
         <h1><b>Learn to code by watching others</b></h1>
