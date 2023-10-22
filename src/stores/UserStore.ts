@@ -12,6 +12,8 @@ export const useUserStore = defineStore('user', {
 })
 
 interface UserInfo {
-  name: string
-  age: number
+  nome: string
+  email: string
+  senha: string
+  senhaConfirme: string
 }

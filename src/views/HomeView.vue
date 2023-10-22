@@ -25,7 +25,7 @@ function goTo(destiny: string) {
               <p class="card-text">
                 {{ $t('home.card1.description') }}
               </p>
-              <button class="btn btn-primary" @click="goTo('Home')">
+              <button class="btn btn-primary" @click="goTo('SimpleForm')">
                 {{ $t('home.card1.button') }}
               </button>
             </div>
