@@ -13,6 +13,13 @@
     "header": "Sobre nós",
     "donations": "Doações arrecadadas: {donations}"
   },
+  "modals": {
+    "card1": {
+      "title": "Modal Simples",
+      "description": "Aqui você verá um modal simples",
+      "button": "Abrir Modal"
+    }
+  },
   "home": {
     "description": {
       "p1": "Este projeto é destinado ao estudo e aperfeiçoamento em Vue3 e front-end skills.",
