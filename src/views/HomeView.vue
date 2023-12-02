@@ -38,7 +38,7 @@ function goTo(destiny: string) {
               <p class="card-text">
                 {{ $t('home.card2.description') }}
               </p>
-              <button class="btn btn-primary">
+              <button class="btn btn-primary" @click="goTo('Modals')">
                 {{ $t('home.card2.button') }}
               </button>
             </div>
@@ -62,28 +62,56 @@ function goTo(destiny: string) {
   </div>
 </template>
 <style scoped lang="scss">
-.pagina {
-  margin: 1rem;
-}
 .main-card {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 30px;
+  justify-content: flex-start;
+  margin-left: 4rem;
+  margin-right: 4rem;
 }
 .my-cards {
-  flex: 1 0 400px;
+  flex: auto;
+  min-height: 200px;
+  max-width: 400px;
+  background: var(--Violet) !important;
+  border-radius: 1em;
 }
 .card {
-  height: 100%;
-  background-color: var(--background-dark-2) !important;
+  height: calc(100% - 40px);
+  margin-top: 40px;
+  background-color: var(--Dark-blue) !important;
   border-radius: 1em;
-  color: var(--text-dark-1);
+  color: var(--Pale-Blue);
 }
+.card-body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+.btn {
+  margin-top: auto;
+}
+.card-title {
+  color: var(--Pale-Blue);
+}
+.card-text {
+  color: var(--Desaturated-blue);
+}
+.btn-primary {
+  background-color: var(--Dark-blue);
+  color: var(--Pale-Blue);
+}
+.pagina {
+  margin: 1rem;
+}
+
 .about {
   text-align: center;
   margin: 2rem 20% 2rem 20%;
   padding: 1rem;
-  box-shadow: 0px 0px 8px 2px #2c3e50;
+  box-shadow: 0px 0px 8px 2px var(--Violet);
   border-radius: 1em;
 }
 </style>

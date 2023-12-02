@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { reactive, watch } from 'vue'
+import { markRaw, reactive, watch } from 'vue'
 import TextInput from '../components/TextInput.vue'
 import { Form } from 'vee-validate'
+import { useModal } from '@/composables/useModal'
+import ModalConfirme from '@/components/modals/ModalConfirme.vue'
+
+const modal = useModal()
 
 const state = reactive({
   bill: 0,
@@ -11,6 +15,10 @@ const state = reactive({
   personTotal: 0,
   tipPerson: 0
 })
+function custom() {
+  modal.component.value = markRaw(ModalConfirme)
+  modal.showModal()
+}
 function calculateTotal() {
   state.tipPerson = (state.bill * (state.tip / 100)) / state.people
   state.personTotal = state.bill / state.people + state.tipPerson
@@ -30,6 +38,14 @@ watch(
 )
 </script>
 <template>
+  <Teleport to="#modal">
+    <!-- <ModalConfirme :exibir="modal.show.value" @fechar-modal="modal.hideModal" /> -->
+    <component
+      :is="modal.component.value"
+      :exibir="modal.show.value"
+      @fechar-modal="modal.hideModal"
+    />
+  </Teleport>
   <div class="teste">
     <p class="center">
       SPLI <br />
@@ -100,15 +116,25 @@ watch(
                     50%
                   </button>
                 </div>
+                <div class="col mt-1">
+                  <button
+                    @click="custom()"
+                    class="btn btn-primary position-relative"
+                    :class="selectedButton(50)"
+                    type="button"
+                  >
+                    CUSTOM
+                  </button>
+                </div>
                 <!-- abrir modal ao clicar custo me escolher porcentagem -->
-                <div class="col">
+                <!-- <div class="col">
                   <input
                     placeholder="Custom"
                     :value="state.tipCustom"
                     class="form-control input-tip input-editable"
                     type="text"
                   />
-                </div>
+                </div> -->
               </div>
               <div class="row mt-2"></div>
               <TextInput
@@ -223,6 +249,7 @@ body {
   padding-bottom: 1.5rem;
   background-color: var(--Very-light-grayish-cyan);
   margin: 5rem auto 2rem auto;
+  border-radius: 1rem;
 }
 .result {
   color: var(--Strong-cyan);

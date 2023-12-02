@@ -14,7 +14,9 @@ const modalRef = ref<HTMLElement | null>(null)
 let modal: Modal
 onMounted(() => {
   if (modalRef.value) {
-    modal = new Modal(modalRef.value)
+    modal = new Modal(modalRef.value, {
+      backdrop: 'static'
+    })
   }
   if (props.exibir) modal.show()
 })

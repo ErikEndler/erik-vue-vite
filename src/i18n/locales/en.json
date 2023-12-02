@@ -7,6 +7,7 @@
     "home": "Home",
     "about": "About",
     "simple-form": "Simple Form",
+    "modals": "Modals",
     "search": "Search"
   },
   "about": {
@@ -32,9 +33,9 @@
       "button": "Go Simple Form"
     },
     "card2": {
-      "title": "Special title treatment",
-      "description": "With supporting text below as a natural lead-in to additional content.",
-      "button": "Go somewhere"
+      "title": "Modals",
+      "description": "Here you will see a Modals exemple.",
+      "button": "Go Modals"
     }
   },
   "simpleForm": {
