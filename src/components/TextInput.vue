@@ -74,13 +74,19 @@ function colar(event: Event) {
     event.preventDefault()
   }
 }
-function updateValue(event: Event) {
-  emit('update:value', (event.target as HTMLInputElement).value)
+function updateValue() {
+  emit('update:value', inputValue)
 }
 watch(
   () => Tr.currentLocale,
   () => {
     if (meta.validated) validate()
+  }
+)
+watch(
+  () => props.value,
+  () => {
+    inputValue.value = props.value
   }
 )
 </script>

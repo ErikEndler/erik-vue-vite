@@ -19,6 +19,11 @@
       "title": "Simple Modal",
       "description": "Here you will see a simple modal",
       "button": "Open Modal"
+    },
+    "card2": {
+      "title": "Form Modal",
+      "description": "Here you will see a Form Modal, enter a value it returns and will be displayed here =>",
+      "button": "Open Modal"
     }
   },
   "home": {

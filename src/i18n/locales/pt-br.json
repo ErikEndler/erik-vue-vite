@@ -19,6 +19,11 @@
       "title": "Modal Simples",
       "description": "Aqui você verá um modal simples",
       "button": "Abrir Modal"
+    },
+    "card2": {
+      "title": "Modal Formulário",
+      "description": "Aqui voce vera um modal com formulário, digite um valor ele retorna e sera exibido aqui =>",
+      "button": "Abrir Modal"
     }
   },
   "home": {

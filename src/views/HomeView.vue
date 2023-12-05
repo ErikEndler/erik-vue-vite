@@ -44,19 +44,6 @@ function goTo(destiny: string) {
             </div>
           </div>
         </div>
-        <div class="my-cards">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{{ $t('home.card2.title') }}</h5>
-              <p class="card-text">
-                {{ $t('home.card2.description') }}
-              </p>
-              <button class="btn btn-primary">
-                {{ $t('home.card2.button') }}
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { markRaw, reactive, watch } from 'vue'
-import TextInput from '../components/TextInput.vue'
+import { markRaw, reactive, ref, watch } from 'vue'
+import TextInput from '@/components/TextInput.vue'
 import { Form } from 'vee-validate'
 import { useModal } from '@/composables/useModal'
-import ModalConfirme from '@/components/modals/ModalConfirme.vue'
+import ModalForm, { type ConfigModalForm } from '@/components/modals/ModalForm.vue'
 
 const modal = useModal()
 
@@ -11,14 +11,20 @@ const state = reactive({
   bill: 0,
   people: 1,
   tip: 5,
-  tipCustom: '',
+  tipCustom: 0,
   personTotal: 0,
   tipPerson: 0
 })
-function custom() {
-  modal.component.value = markRaw(ModalConfirme)
+function openModalCustom() {
+  modal.component.value = markRaw(ModalForm)
   modal.showModal()
 }
+
+function changeCustomTip(value: number) {
+  state.tipCustom = value as number
+  selectTip(value)
+}
+
 function calculateTotal() {
   state.tipPerson = (state.bill * (state.tip / 100)) / state.people
   state.personTotal = state.bill / state.people + state.tipPerson
@@ -36,17 +42,29 @@ watch(
     calculateTotal()
   }
 )
+const config = ref<ConfigModalForm>({
+  valueCustom: state.tipCustom,
+  label: 'Tip Custom',
+  title: 'Tip Custom',
+  type: 'number',
+  classInput: 'input-tip',
+  classLabel: 'label-tip',
+  classModal: 'page-tipe',
+  classHeader: 'page-tipe'
+})
 </script>
 <template>
-  <Teleport to="#modal">
-    <!-- <ModalConfirme :exibir="modal.show.value" @fechar-modal="modal.hideModal" /> -->
-    <component
-      :is="modal.component.value"
-      :exibir="modal.show.value"
-      @fechar-modal="modal.hideModal"
-    />
-  </Teleport>
-  <div class="teste">
+  <div class="page-tipe">
+    <Teleport to="#modal">
+      <!-- <ModalConfirme :exibir="modal.show.value" @fechar-modal="modal.hideModal" /> -->
+      <component
+        :is="modal.component.value"
+        :exibirProp="modal.show.value"
+        :config="config"
+        @confirmar="changeCustomTip"
+        @fechar-modal="modal.hideModal"
+      />
+    </Teleport>
     <p class="center">
       SPLI <br />
       TTER
@@ -69,7 +87,7 @@ watch(
                 <div class="col-4">
                   <button
                     @click="selectTip(5)"
-                    class="btn btn-primary"
+                    class="btn btn-custom btn-primary"
                     :class="selectedButton(5)"
                     type="button"
                   >
@@ -79,7 +97,7 @@ watch(
                 <div class="col">
                   <button
                     @click="selectTip(10)"
-                    class="btn btn-primary"
+                    class="btn btn-custom btn-primary"
                     :class="selectedButton(10)"
                     type="button"
                   >
@@ -89,7 +107,7 @@ watch(
                 <div class="col">
                   <button
                     @click="selectTip(15)"
-                    class="btn btn-primary"
+                    class="btn btn-custom btn-primary"
                     :class="selectedButton(15)"
                     type="button"
                   >
@@ -99,7 +117,7 @@ watch(
                 <div class="col mt-1">
                   <button
                     @click="selectTip(25)"
-                    class="btn btn-primary"
+                    class="btn btn-custom btn-primary"
                     :class="selectedButton(25)"
                     type="button"
                   >
@@ -109,7 +127,7 @@ watch(
                 <div class="col mt-1">
                   <button
                     @click="selectTip(50)"
-                    class="btn btn-primary position-relative"
+                    class="btn btn-custom btn-primary position-relative"
                     :class="selectedButton(50)"
                     type="button"
                   >
@@ -118,23 +136,15 @@ watch(
                 </div>
                 <div class="col mt-1">
                   <button
-                    @click="custom()"
-                    class="btn btn-primary position-relative"
-                    :class="selectedButton(50)"
+                    @click="openModalCustom()"
+                    class="btn btn-custom btn-primary btn-tip-custom"
+                    :class="selectedButton(state.tipCustom)"
                     type="button"
                   >
-                    CUSTOM
+                    <span v-if="state.tipCustom > 0">{{ state.tipCustom }}%</span>
+                    <span v-else>CUSTOM</span>
                   </button>
                 </div>
-                <!-- abrir modal ao clicar custo me escolher porcentagem -->
-                <!-- <div class="col">
-                  <input
-                    placeholder="Custom"
-                    :value="state.tipCustom"
-                    class="form-control input-tip input-editable"
-                    type="text"
-                  />
-                </div> -->
               </div>
               <div class="row mt-2"></div>
               <TextInput
@@ -175,18 +185,32 @@ watch(
   </div>
 </template>
 
-<!-- <style>
-body {
-  background-color: var(--Light-grayish-cyan) !important;
-}
-</style> -->
-<style scoped>
+<style scoped lang="scss">
 .form-control {
   width: 100px;
   height: 45px;
 }
+.page-tipe {
+  font-family: 'Space Mono', monospace;
+  background-color: var(--Light-grayish-cyan) !important;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--Very-dark-cyan);
+}
+::v-deep(.page-tipe) {
+  font-family: 'Space Mono', monospace;
+  background-color: var(--Light-grayish-cyan) !important;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--Very-dark-cyan);
+}
 ::v-deep(body) {
   background-color: var(--Light-grayish-cyan) !important;
+}
+::v-deep(.label-tip) {
+  font-size: 14px;
+  color: var(--Dark-grayish-cyan) !important;
+  border-style: none;
 }
 ::v-deep(.input-tip) {
   padding: 8px 5px !important;
@@ -211,24 +235,26 @@ body {
 .btn {
   width: 100px;
   height: 45px;
+}
+::v-deep(.btn-custom) {
   background-color: var(--Very-dark-cyan);
   font-size: 18px;
   font-weight: 500;
 }
-.btn:hover {
+.btn-tip-custom:hover:before {
+  content: 'CUSTOM';
+}
+.btn-tip-custom:hover span {
+  display: none;
+}
+::v-deep(.btn-custom:hover) {
   background-color: var(--Strong-cyan);
   color: var(--Very-dark-cyan);
   border: none;
   font-size: 18px;
   font-weight: 700;
 }
-.teste {
-  font-family: 'Space Mono', monospace;
-  background-color: var(--Light-grayish-cyan);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--Very-dark-cyan);
-}
+
 .card-2 {
   font-size: 14px;
   color: var(--Dark-grayish-cyan);
