@@ -20,7 +20,7 @@ const collapse = computed(() => (state.showNavBar ? '' : 'collapse'))
 
 <template>
   <div>
-    <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+    <nav class="navbar navbar-dark navbar-expand-lg">
       <div class="container-fluid">
         <button
           class="navbar-toggler"
@@ -41,6 +41,9 @@ const collapse = computed(() => (state.showNavBar ? '' : 'collapse'))
             </li>
             <li class="nav-item">
               <a class="nav-link" @click="goTo('SimpleForm')">{{ $t('nav.simple-form') }}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" @click="goTo('Modals')">{{ $t('nav.modals') }}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" @click="goTo('TipCalculator')">Tip Calculator</a>
@@ -70,15 +73,15 @@ const collapse = computed(() => (state.showNavBar ? '' : 'collapse'))
 }
 a {
   cursor: pointer;
-  color: var(--text-dark-2);
+  color: var(--Pale-Blue);
 }
 .nav-link {
-  color: var(--text-dark-2);
+  color: var(--Pale-Blue);
 }
 a:hover {
   color: gold;
 }
 .navbar-toggler-icon {
-  color: var(--text-dark-2);
+  color: var(--Pale-Blue);
 }
 </style>

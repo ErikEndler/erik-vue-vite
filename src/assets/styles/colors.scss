@@ -9,7 +9,10 @@
   --success-color: #21a67a;
   --success-bg-color: #e0eee4;
 
-  --background-dark: #0d121b;
+  //hsl(210, 78%, 56%)
+  --background-dark: hsl(230, 17%, 14%);
+  --Very-Dark-Blue: hsl(230, 17%, 14%);
+  // --background-dark: #0d121b;
   --background-dark-2: #161f32;
   --background-dark-3: #262a44;
 
@@ -25,4 +28,18 @@
   --Light-grayish-cyan: hsl(185, 41%, 84%);
   --Very-light-grayish-cyan: hsl(189, 41%, 97%);
   --White: hsl(0, 0%, 100%);
+
+  --Very-dark-blue: hsl(226, 43%, 10%);
+  --Dark-blue: hsl(235, 46%, 20%);
+  --Desaturated-blue: hsl(235, 45%, 61%);
+  --Pale-Blue: hsl(236, 100%, 87%);
+
+  --Blue: hsl(246, 80%, 60%);
+
+  --Light-red-work: hsl(15, 100%, 70%);
+  --Soft-blue: hsl(195, 74%, 62%);
+  --Light-red: hsl(348, 100%, 68%);
+  --Lime-green: hsl(145, 58%, 55%);
+  --Violet: hsl(264, 64%, 52%);
+  --Soft-orange: hsl(43, 84%, 65%);
 }

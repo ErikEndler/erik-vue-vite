@@ -3,7 +3,7 @@ import { ref, onMounted, watch } from 'vue'
 import { Modal } from 'bootstrap'
 
 const props = defineProps<{
-  exibir: boolean
+  exibirProp: boolean
 }>()
 
 const emit = defineEmits<{
@@ -14,13 +14,16 @@ const modalRef = ref<HTMLElement | null>(null)
 let modal: Modal
 onMounted(() => {
   if (modalRef.value) {
-    modal = new Modal(modalRef.value)
+    modal = new Modal(modalRef.value, {
+      backdrop: 'static',
+      keyboard: false
+    })
   }
-  if (props.exibir) modal.show()
+  if (props.exibirProp) modal.show()
 })
 
 watch(
-  () => props.exibir,
+  () => props.exibirProp,
   (exibir) => {
     if (exibir) {
       modal.show()
@@ -37,7 +40,7 @@ function close() {
 
 <template>
   <div class="modal fade" tabindex="-1" aria-hidden="true" ref="modalRef">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Modal title</h5>
@@ -53,10 +56,18 @@ function close() {
   </div>
 </template>
 <style scoped>
-.modal-title {
-  color: var(--background-dark-3);
+.modal {
+  --bs-modal-bg: var(--Dark-blue);
+  --bs-modal-footer-border-width: outset;
 }
-.modal-body {
-  color: var(--background-dark-3);
+.btn-close {
+  --bs-btn-close-color: var(--Pale-Blue);
 }
+.modal-header {
+  --bs-modal-header-border-width: outset;
+  background: var(--Violet);
+}
+/* .modal-body {
+  background: var(--Dark-blue);
+} */
 </style>
