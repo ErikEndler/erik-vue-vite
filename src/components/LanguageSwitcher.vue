@@ -10,15 +10,19 @@ const switchLanguage = async (event: Event) => {
   const newLocale = (event.target as HTMLInputElement).value
   await Tr.switchLanguage(newLocale)
 }
+defineExpose({
+  switchLanguage
+})
 </script>
 
 <template>
-  <select class="form-select form-select-sm" @change="switchLanguage">
+  <select id="select-language" class="form-select form-select-sm" @change="switchLanguage($event)">
     <option
       v-for="sLocale in supportedLocales"
       :key="`locale-${sLocale}`"
       :value="sLocale"
       :selected="locale === sLocale"
+      :id="sLocale"
     >
       {{ t(`locale.${sLocale}`) }}
     </option>

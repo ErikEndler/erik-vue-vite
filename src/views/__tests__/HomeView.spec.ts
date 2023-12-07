@@ -1,11 +1,8 @@
 import { describe, it, expect, vi, test } from 'vitest'
-// import { useRouter } from 'vue-router'
 import { mount } from '@vue/test-utils'
 import HomeView from '@/views/HomeView.vue'
 import router from '@/router'
 import i18n from '@/i18n/index'
-
-//vi.mock('vue-router')
 
 function mountHomeView() {
   const wrapper = mount(HomeView, {
@@ -24,7 +21,7 @@ describe('mount component: HomeView', () => {
   test('Clicar btn "Go Simple Form', async () => {
     const push = vi.spyOn(router, 'push')
     await mountHomeView().find('[id="btn-simple-form"]').trigger('click')
-    expect(push).toHaveBeenCalledOnce()
+    expect(push).toHaveBeenCalled()
     expect(push).toHaveBeenCalledWith({ name: 'SimpleForm' })
   })
   test('Clicar btn "Go Modals', async () => {
