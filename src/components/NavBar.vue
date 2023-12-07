@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue'
-import router from '../router'
+import router from '@/router'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 
 const state = reactive({
