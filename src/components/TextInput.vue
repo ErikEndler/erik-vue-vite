@@ -74,7 +74,8 @@ function colar(event: Event) {
     event.preventDefault()
   }
 }
-function updateValue() {
+function updateValue(event: Event) {
+  handleChange((event.target as HTMLInputElement).value)
   emit('update:value', inputValue)
 }
 watch(
@@ -89,6 +90,17 @@ watch(
     inputValue.value = props.value
   }
 )
+defineExpose({
+  computedValidate,
+  updateValue,
+  colar,
+  value: inputValue,
+  errorMessage,
+  handleBlur,
+  validate,
+  handleChange,
+  meta
+})
 </script>
 
 <template>
@@ -102,13 +114,13 @@ watch(
       :type="type"
       :value="inputValue"
       :placeholder="placeholder"
-      @input="handleChange"
       @blur="handleBlur"
+      @paste="colar($event)"
     />
-    <p class="help-message" v-if="errorMessage">
+    <p id="errorMsg" class="help-message" v-if="errorMessage">
       {{ errorMessage }}
     </p>
-    <p class="help-message" v-show="meta.valid">
+    <p id="successMsg" class="help-message" v-show="meta.valid">
       {{ successMessage }}
     </p>
   </div>
