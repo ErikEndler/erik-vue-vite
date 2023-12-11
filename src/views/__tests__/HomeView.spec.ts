@@ -1,11 +1,11 @@
 import { describe, it, expect, vi, test } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import HomeView from '@/views/HomeView.vue'
 import router from '@/router'
 import i18n from '@/i18n/index'
 
 function mountHomeView() {
-  const wrapper = mount(HomeView, {
+  const wrapper = shallowMount(HomeView, {
     global: {
       plugins: [router, i18n],
       mocks: { t: (key: string) => key }
