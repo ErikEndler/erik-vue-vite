@@ -69,6 +69,12 @@ const computedValidate = computed(() => {
     paste: colar
   }
 })
+const idErrorMsg = computed(() => {
+  return name.value + 'ErrorMsg'
+})
+const idSuccessMsg = computed(() => {
+  return name.value + 'SuccessMsg'
+})
 function colar(event: Event) {
   if (props.preventPaste) {
     event.preventDefault()
@@ -99,7 +105,8 @@ defineExpose({
   handleBlur,
   validate,
   handleChange,
-  meta
+  idErrorMsg,
+  idSuccessMsg
 })
 </script>
 
@@ -117,10 +124,10 @@ defineExpose({
       @blur="handleBlur"
       @paste="colar($event)"
     />
-    <p id="errorMsg" class="help-message" v-if="errorMessage">
+    <p :id="idErrorMsg" class="help-message" v-if="errorMessage">
       {{ errorMessage }}
     </p>
-    <p id="successMsg" class="help-message" v-show="meta.valid">
+    <p :id="idSuccessMsg" class="help-message" v-show="meta.valid">
       {{ successMessage }}
     </p>
   </div>

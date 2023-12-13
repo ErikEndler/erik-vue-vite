@@ -59,10 +59,10 @@ const config = ref<ConfigModalForm>({
       <!-- <ModalConfirme :exibir="modal.show.value" @fechar-modal="modal.hideModal" /> -->
       <component
         :is="modal.component.value"
-        :exibirProp="modal.show.value"
+        :displayProp="modal.show.value"
         :config="config"
-        @confirmar="changeCustomTip"
-        @fechar-modal="modal.hideModal"
+        @confirmeModal="changeCustomTip"
+        @closeModal="modal.hideModal"
       />
     </Teleport>
     <p class="center">

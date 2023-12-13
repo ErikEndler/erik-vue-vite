@@ -27,11 +27,11 @@ function mountTextInput() {
 
 describe('mount component: TextInput', () => {
   const wrapper = mountTextInput()
-
   const input = wrapper.find('input')
   const label = wrapper.find('label')
-  const errorMsg = wrapper.find('[id="errorMsg"]')
-  const successMessage = wrapper.find('[id="successMsg"]')
+  const errorMsg = wrapper.find('[id="' + wrapper.vm.idErrorMsg + '"]')
+  const successMessage = wrapper.find('[id="' + wrapper.vm.idSuccessMsg + '"]')
+
   it('renders properly', async () => {
     expect(wrapper).toBeTruthy()
     expect(input.exists()).toBe(true)

@@ -3,11 +3,12 @@ import { ref, onMounted, watch } from 'vue'
 import { Modal } from 'bootstrap'
 
 const props = defineProps<{
-  exibirProp: boolean
+  displayProp: boolean
 }>()
 
 const emit = defineEmits<{
-  (e: 'fecharModal', exibir: boolean): void
+  (e: 'closeModal', exibir: boolean): void
+  (e: 'confirmeModal'): void
 }>()
 
 const modalRef = ref<HTMLElement | null>(null)
@@ -19,11 +20,10 @@ onMounted(() => {
       keyboard: false
     })
   }
-  if (props.exibirProp) modal.show()
+  if (props.displayProp) modal.show()
 })
-
 watch(
-  () => props.exibirProp,
+  () => props.displayProp,
   (exibir) => {
     if (exibir) {
       modal.show()
@@ -32,24 +32,40 @@ watch(
     }
   }
 )
-
 function close() {
-  emit('fecharModal', false)
+  emit('closeModal', false)
 }
+function confirme() {
+  emit('confirmeModal')
+  emit('closeModal', false)
+}
+defineExpose({
+  close,
+  confirme
+})
 </script>
-
 <template>
   <div class="modal fade" tabindex="-1" aria-hidden="true" ref="modalRef">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
-          <button type="button" class="btn-close" @click="close()" aria-label="Close"></button>
+          <h5 id="modal-title" class="modal-title">Modal title</h5>
+          <button
+            id="modal-btn-close-header"
+            type="button"
+            class="btn-close"
+            @click="close()"
+            aria-label="Close"
+          ></button>
         </div>
-        <div class="modal-body">Woo-hoo, you're reading this text in a modal!</div>
+        <div class="modal-body" id="modal-body">Woo-hoo, you're reading this text in a modal!</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="close()">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button id="modal-btn-close" type="button" class="btn btn-secondary" @click="close()">
+            Close
+          </button>
+          <button id="modal-btn-confirme" type="button" class="btn btn-primary" @click="confirme()">
+            Save changes
+          </button>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ export default mergeConfig(
       exclude: [...configDefaults.exclude, 'e2e/*'],
       root: fileURLToPath(new URL('./', import.meta.url)),
       coverage: {
-        provider: 'istanbul' // istanbul or 'v8'
+        provider: 'v8' // istanbul or 'v8'
       }
     }
   })
