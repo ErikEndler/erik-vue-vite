@@ -15,7 +15,7 @@ export interface ConfigModalForm {
 }
 
 interface Props {
-  exibirProp: boolean
+  displayProp: boolean
   config?: ConfigModalForm
 }
 
@@ -59,8 +59,8 @@ const state = reactive({
 })
 
 const emit = defineEmits<{
-  (e: 'fecharModal', exibir: boolean): void
-  (e: 'confirmar', value: number | string | undefined): number
+  (e: 'closeModal', exibir: boolean): void
+  (e: 'confirmeModal', value: number | string | undefined): number
 }>()
 
 const modalRef = ref<HTMLElement | null>(null)
@@ -73,13 +73,13 @@ onMounted(() => {
     })
   }
   if (props.config.valueCustom) state.customValue = props.config.valueCustom
-  if (props.exibirProp) {
+  if (props.displayProp) {
     modal.show()
   }
 })
 
 watch(
-  () => props.exibirProp,
+  () => props.displayProp,
   (exibir) => {
     if (exibir) {
       modal.show()
@@ -96,11 +96,11 @@ watch(
 )
 
 function close() {
-  emit('fecharModal', false)
+  emit('closeModal', false)
 }
 function confirmar() {
-  emit('confirmar', state.customValue)
-  emit('fecharModal', false)
+  emit('confirmeModal', state.customValue)
+  emit('closeModal', false)
 }
 </script>
 

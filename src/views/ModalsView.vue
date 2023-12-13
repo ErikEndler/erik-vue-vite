@@ -24,7 +24,7 @@ const openModalValue = () => {
   modal.showModal()
 }
 function update(value: any) {
-  state.valueEdit = value
+  if (modal.component.value === markRaw(ModalForm)) state.valueEdit = value
 }
 </script>
 
@@ -34,38 +34,38 @@ function update(value: any) {
       <!-- <ModalConfirme :exibir="modal.show.value" @fechar-modal="modal.hideModal" /> -->
       <component
         :is="modal.component.value"
-        :exibirProp="modal.show.value"
+        :displayProp="modal.show.value"
         :config="config"
-        @confirmar="update"
-        @fechar-modal="modal.hideModal"
+        @confirmeModal="update"
+        @closeModal="modal.hideModal"
       />
     </Teleport>
-    <div id="title" class="center"><h1>Modals</h1></div>
+    <div id="titleModals" class="center"><h1>Modals</h1></div>
     <div class="mt-5">
       <div class="main-card">
-        <div class="my-cards">
+        <div id="modalConfirme" class="my-cards">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">{{ $t('modals.card1.title') }}</h5>
-              <p class="card-text">
+              <p id="" class="card-text">
                 {{ $t('modals.card1.description') }}
               </p>
-              <button class="btn btn-primary" @click="openModalConfirme">
+              <button id="" class="btn btn-primary" @click="openModalConfirme">
                 {{ $t('modals.card1.button') }}
               </button>
             </div>
           </div>
         </div>
-        <div class="my-cards">
+        <div id="" class="my-cards">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">{{ $t('modals.card2.title') }}</h5>
-              <p class="card-text">
+              <p id="" class="card-text">
                 {{ $t('modals.card2.description') }}
                 <span class="value-edit">{{ state.valueEdit }}</span>
               </p>
 
-              <button class="btn btn-primary" @click="openModalValue">
+              <button id="" class="btn btn-primary" @click="openModalValue">
                 {{ $t('modals.card2.button') }}
               </button>
             </div>

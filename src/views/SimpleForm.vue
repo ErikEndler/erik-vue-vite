@@ -1,22 +1,25 @@
 <script setup lang="ts">
 import * as Yup from 'yup'
-import { Form } from 'vee-validate'
+import { Form, useFormValues } from 'vee-validate'
 import TextInput from '@/components/TextInput.vue'
 import { useI18n } from 'vue-i18n'
 import { setLocale } from 'yup'
 import '@/i18n/rules/validators'
+import { toRef } from 'vue'
 
 const { t } = useI18n()
 
+const invalid = toRef('')
+
 function onSubmit(values: any) {
-  alert(JSON.stringify(values, null, 2))
+  //console.log('onsubmit =', values)
+  //alert(JSON.stringify(values, null, 2))
 }
 
 function onInvalidSubmit() {
-  const submitBtn = document.querySelector('.submit-btn')
-  submitBtn!.classList.add('invalid')
+  invalid.value = 'invalid'
   setTimeout(() => {
-    submitBtn!.classList.remove('invalid')
+    invalid.value = ''
   }, 1000)
 }
 
@@ -35,17 +38,18 @@ let schema = Yup.object().shape({
   password: Yup.string()
     .min(6)
     .required(() => t('simpleForm.fields.errorMessage.password')),
-  confirm_password: Yup.string()
+  confirmPassword: Yup.string()
     .required(() => t('simpleForm.fields.errorMessage.confirmPassword'))
     .oneOf([Yup.ref('password')], () => t('simpleForm.fields.errorMessage.passwordNotMatch'))
+})
+defineExpose({
+  onInvalidSubmit,
+  onSubmit,
+  schema
 })
 </script>
 <template>
   <div class="body w-100 p-5 center">
-    <Teleport to="#modal">
-      <!-- <ModalConfirme :exibir="modal.show.value" @fechar-modal="modal.hideModal" /> -->
-    </Teleport>
-
     <div class="row align-items-center teste">
       <div class="col align-self-center text-center">
         <h1><b>Learn to code by watching others</b></h1>
@@ -56,8 +60,13 @@ let schema = Yup.object().shape({
       </div>
       <div class="col align-self-center text-center">
         <div class="card p-3">
-          <Form @submit="onSubmit" :validation-schema="schema" @invalid-submit="onInvalidSubmit">
+          <Form
+            @submit="(value) => onSubmit(value)"
+            :validation-schema="schema"
+            @invalid-submit="onInvalidSubmit()"
+          >
             <TextInput
+              id="nameInput"
               nameProp="name"
               type="text"
               :label="$t('simpleForm.fields.label.name')"
@@ -65,6 +74,7 @@ let schema = Yup.object().shape({
               :success-message="$t('simpleForm.fields.successMessage.name')"
             />
             <TextInput
+              id="emailInput"
               nameProp="email"
               type="email"
               :label="$t('simpleForm.fields.label.email')"
@@ -72,6 +82,7 @@ let schema = Yup.object().shape({
               :success-message="$t('simpleForm.fields.successMessage.email')"
             />
             <TextInput
+              id="passwordInput"
               nameProp="password"
               type="password"
               :label="$t('simpleForm.fields.label.password')"
@@ -79,14 +90,15 @@ let schema = Yup.object().shape({
               :success-message="$t('simpleForm.fields.successMessage.password')"
             />
             <TextInput
-              nameProp="confirm_password"
+              id="confirmPasswordInput"
+              nameProp="confirmPassword"
               type="password"
               :label="$t('simpleForm.fields.label.confirmPassword')"
               :placeholder="$t('simpleForm.fields.placeholder.confirmPassword')"
               :success-message="$t('simpleForm.fields.successMessage.confirmPassword')"
             />
 
-            <button class="submit-btn" type="submit">Submit</button>
+            <button id="submitBtn" :class="invalid" class="submit-btn" type="submit">Submit</button>
           </Form>
         </div>
       </div>
@@ -148,5 +160,45 @@ p {
 h1 {
   color: white;
   font-weight: 700;
+}
+.submit-btn.invalid {
+  animation: shake 0.5s;
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px);
+  }
+  10% {
+    transform: translate(-1px, -2px);
+  }
+  20% {
+    transform: translate(-3px, 0px);
+  }
+  30% {
+    transform: translate(3px, 2px);
+  }
+  40% {
+    transform: translate(1px, -1px);
+  }
+  50% {
+    transform: translate(-1px, 2px);
+  }
+  60% {
+    transform: translate(-3px, 1px);
+  }
+  70% {
+    transform: translate(3px, 1px);
+  }
+  80% {
+    transform: translate(-1px, -1px);
+  }
+  90% {
+    transform: translate(1px, 2px);
+  }
+  100% {
+    transform: translate(1px, -2px);
+  }
 }
 </style>
