@@ -52,6 +52,9 @@ const config = ref<ConfigModalForm>({
   classModal: 'page-tipe',
   classHeader: 'page-tipe'
 })
+defineExpose({
+  state
+})
 </script>
 <template>
   <div class="page-tipe">
@@ -81,11 +84,14 @@ const config = ref<ConfigModalForm>({
                 type="number"
                 label="Bill"
                 placeholder="0"
+                id="bill"
               />
+              state.bill{{ state.bill }}
               <label class="mt-4" for="percent">Select Tip %</label>
               <div class="row mt-3 row-cols-3">
                 <div class="col-4">
                   <button
+                    id="tip-5"
                     @click="selectTip(5)"
                     class="btn btn-custom btn-primary"
                     :class="selectedButton(5)"
@@ -96,6 +102,7 @@ const config = ref<ConfigModalForm>({
                 </div>
                 <div class="col">
                   <button
+                    id="tip-10"
                     @click="selectTip(10)"
                     class="btn btn-custom btn-primary"
                     :class="selectedButton(10)"
@@ -106,6 +113,7 @@ const config = ref<ConfigModalForm>({
                 </div>
                 <div class="col">
                   <button
+                    id="tip-15"
                     @click="selectTip(15)"
                     class="btn btn-custom btn-primary"
                     :class="selectedButton(15)"
@@ -116,6 +124,7 @@ const config = ref<ConfigModalForm>({
                 </div>
                 <div class="col mt-1">
                   <button
+                    id="tip-25"
                     @click="selectTip(25)"
                     class="btn btn-custom btn-primary"
                     :class="selectedButton(25)"
@@ -126,6 +135,7 @@ const config = ref<ConfigModalForm>({
                 </div>
                 <div class="col mt-1">
                   <button
+                    id="tip-50"
                     @click="selectTip(50)"
                     class="btn btn-custom btn-primary position-relative"
                     :class="selectedButton(50)"
@@ -136,6 +146,7 @@ const config = ref<ConfigModalForm>({
                 </div>
                 <div class="col mt-1">
                   <button
+                    id="tip-custom"
                     @click="openModalCustom()"
                     class="btn btn-custom btn-primary btn-tip-custom"
                     :class="selectedButton(state.tipCustom)"
@@ -154,6 +165,7 @@ const config = ref<ConfigModalForm>({
                 type="number"
                 label="Number of People"
                 placeholder="0"
+                id="people"
               />
             </Form>
           </div>

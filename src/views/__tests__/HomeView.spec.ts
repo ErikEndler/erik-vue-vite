@@ -18,13 +18,13 @@ describe('mount component: HomeView', () => {
   it('renders properly', async () => {
     expect(HomeView).toBeTruthy()
   })
-  test('Clicar btn "Go Simple Form', async () => {
+  test('Click on btn "Go Simple Form', async () => {
     const push = vi.spyOn(router, 'push')
     await mountHomeView().find('[id="btn-simple-form"]').trigger('click')
     expect(push).toHaveBeenCalled()
     expect(push).toHaveBeenCalledWith({ name: 'SimpleForm' })
   })
-  test('Clicar btn "Go Modals', async () => {
+  test('click on btn "Go Modals', async () => {
     const push = vi.spyOn(router, 'push')
     await mountHomeView().find('[id="btn-modal"]').trigger('click')
     expect(push).toHaveBeenCalledOnce()

@@ -13,7 +13,7 @@ const invalid = toRef('')
 
 function onSubmit(values: any) {
   //console.log('onsubmit =', values)
-  //alert(JSON.stringify(values, null, 2))
+  alert(JSON.stringify(values, null, 2))
 }
 
 function onInvalidSubmit() {

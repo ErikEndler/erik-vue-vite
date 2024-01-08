@@ -29,7 +29,7 @@ function update(value: any) {
 </script>
 
 <template>
-  <div class="pagina">
+  <div class="page">
     <Teleport to="#modal">
       <!-- <ModalConfirme :exibir="modal.show.value" @fechar-modal="modal.hideModal" /> -->
       <component
@@ -64,7 +64,6 @@ function update(value: any) {
                 {{ $t('modals.card2.description') }}
                 <span class="value-edit">{{ state.valueEdit }}</span>
               </p>
-
               <button id="" class="btn btn-primary" @click="openModalValue">
                 {{ $t('modals.card2.button') }}
               </button>
@@ -111,7 +110,7 @@ function update(value: any) {
   background-color: var(--Dark-blue);
   color: var(--Pale-Blue);
 }
-.pagina {
+.page {
   margin: 1rem;
 }
 
