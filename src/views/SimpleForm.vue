@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import * as Yup from 'yup'
-import { Form, useFormValues } from 'vee-validate'
+import { Form } from 'vee-validate'
 import TextInput from '@/components/TextInput.vue'
 import { useI18n } from 'vue-i18n'
 import { setLocale } from 'yup'

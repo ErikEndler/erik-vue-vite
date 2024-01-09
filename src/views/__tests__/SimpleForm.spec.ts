@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, test } from 'vitest'
-import { shallowMount, mount, flushPromises } from '@vue/test-utils'
+import { mount, flushPromises } from '@vue/test-utils'
 import SimpleForm from '@/views/SimpleForm.vue'
 import router from '@/router'
 import i18n from '@/i18n/index'
