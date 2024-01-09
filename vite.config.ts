@@ -10,7 +10,7 @@ import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: 'erik-vue-vite',
+  base: process.env.NODE_ENV === 'production' ? '/erik-vue-vite/' : '/',
   plugins: [
     vue(),
     VueI18nPlugin({
