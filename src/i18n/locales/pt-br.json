@@ -30,7 +30,8 @@
     "description": {
       "p1": "Este projeto é destinado ao estudo e aperfeiçoamento em Vue3 e front-end skills.",
       "p2": "O projeto usa Vue 3 com Vite, Bootstrap {bootstrap} e TypeScript.",
-      "p3": "Usado Pinia para acessar o store."
+      "p3": "Usado Pinia para acessar o store.",
+      "p4": "Usado vitest para testes unitários"
     },
     "card1": {
       "title": "Formulário Simples",
@@ -40,7 +41,12 @@
     "card2": {
       "title": "Modais",
       "description": "Aqui você verá exemplos de modais.",
-      "button": "Go somewhere"
+      "button": "Ir Modais"
+    },
+    "card3": {
+      "title": "Calculadora de gorjeta",
+      "description": "Aqui você verá um Calculadora de gorjetas. Insira o valor da conta, numero de pessoas, escolha uma porcentagem.",
+      "button": "Ir Calculadora de gorjeta"
     }
   },
   "simpleForm": {

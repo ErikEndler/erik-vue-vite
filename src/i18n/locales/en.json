@@ -30,7 +30,8 @@
     "description": {
       "p1": "This project is intended for study and improvement in Vue3 and front-end skills.",
       "p2": "The project uses Vue 3 with Vite, Bootstrap {bootstrap} and TypeScript.",
-      "p3": "Used Pinia to access store."
+      "p3": "Used Pinia to access store.",
+      "p4": "Used vitest for unit testing"
     },
     "card1": {
       "title": "Simple Form",
@@ -41,6 +42,11 @@
       "title": "Modals",
       "description": "Here you will see a Modals exemple.",
       "button": "Go Modals"
+    },
+    "card3": {
+      "title": "Tip Caculator",
+      "description": "Here you will see a Tip Calculator. Enter the bill amount, number of people, choose a percentage.",
+      "button": "Go Tip Caculator"
     }
   },
   "simpleForm": {

@@ -10,11 +10,12 @@ function goTo(destiny: string) {
   <div class="pagina">
     <div id="title" class="center"><h1>Welcome to Erik's vue3 project</h1></div>
     <div class="about">
-      <p>{{ $n(1456, 'currencyFormat') }}</p>
-      <p>{{ $t('about.donations', { donations: $n(1456, 'currencyFormat') }) }}</p>
+      <!-- <p>{{ $n(1456, 'currencyFormat') }}</p>
+      <p>{{ $t('about.donations', { donations: $n(1456, 'currencyFormat') }) }}</p> -->
       <p>{{ $t('home.description.p1') }}</p>
       <p>{{ $t('home.description.p2', { bootstrap: '5.3' }) }}</p>
       <p>{{ $t('home.description.p3') }}</p>
+      <p>{{ $t('home.description.p4') }}</p>
     </div>
     <div>
       <div class="main-card">
@@ -44,6 +45,19 @@ function goTo(destiny: string) {
             </div>
           </div>
         </div>
+        <div class="my-cards">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ $t('home.card3.title') }}</h5>
+              <p class="card-text">
+                {{ $t('home.card3.description') }}
+              </p>
+              <button id="btn-simple-form" class="btn btn-primary" @click="goTo('TipCalculator')">
+                {{ $t('home.card3.button') }}
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -53,7 +67,7 @@ function goTo(destiny: string) {
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
-  justify-content: flex-start;
+  justify-content: center;
   margin-left: 4rem;
   margin-right: 4rem;
 }
@@ -61,6 +75,7 @@ function goTo(destiny: string) {
   flex: auto;
   min-height: 200px;
   max-width: 400px;
+  min-width: 400px;
   background: var(--Violet) !important;
   border-radius: 1em;
 }

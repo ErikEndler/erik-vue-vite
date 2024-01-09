@@ -82,7 +82,7 @@ function update(value: any) {
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
-  justify-content: flex-start;
+  justify-content: center;
   margin-left: 4rem;
   margin-right: 4rem;
 }
@@ -90,6 +90,7 @@ function update(value: any) {
   flex: auto;
   min-height: 200px;
   max-width: 400px;
+  min-width: 400px;
   background: var(--Violet) !important;
   border-radius: 1em;
 }
