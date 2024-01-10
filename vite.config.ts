@@ -14,7 +14,8 @@ export default defineConfig({
   plugins: [
     vue(),
     VueI18nPlugin({
-      include: resolve(dirname(fileURLToPath(import.meta.url)), './src/i18n/locales/**') // provide a path to the folder where you'll store translation data (see below)
+      include: resolve(dirname(fileURLToPath(import.meta.url)), './src/i18n/locales/**'), // provide a path to the folder where you'll store translation data (see below)
+      strictMessage: false
     })
   ],
   resolve: {

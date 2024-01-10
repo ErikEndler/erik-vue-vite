@@ -40,7 +40,7 @@
     },
     "card2": {
       "title": "Modals",
-      "description": "Here you will see a Modals exemple.",
+      "description": "Here you will see examples of modals using the <Teleport> component.",
       "button": "Go Modals"
     },
     "card3": {

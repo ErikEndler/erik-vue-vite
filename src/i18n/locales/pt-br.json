@@ -40,7 +40,7 @@
     },
     "card2": {
       "title": "Modais",
-      "description": "Aqui você verá exemplos de modais.",
+      "description": "Aqui você verá exemplos de modais usando componete <Teleport>",
       "button": "Ir Modais"
     },
     "card3": {
