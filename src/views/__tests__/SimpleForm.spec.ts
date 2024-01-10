@@ -74,6 +74,8 @@ describe('mount component: SimpleForm', () => {
   })
 
   test('submit form valid', async () => {
+    const jsdomAlert = window.alert // remember the jsdom alert
+    window.alert = () => {} // provide an empty implementation for window.alert
     const spyOnInvalidSubmit = vi.spyOn(wrapper.vm, 'onInvalidSubmit')
     const spyOnSubmit = vi.spyOn(wrapper.vm, 'onSubmit')
     await submitBtn.trigger('submit')
@@ -82,5 +84,6 @@ describe('mount component: SimpleForm', () => {
       expect(spyOnInvalidSubmit).toBeCalledTimes(0)
       expect(spyOnSubmit).toBeCalled()
     })
+    window.alert = jsdomAlert // restore the jsdom alert
   })
 })

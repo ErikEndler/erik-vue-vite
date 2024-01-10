@@ -1,14 +1,4 @@
 {
-  "compilerOptions": {
-    "noEmit": true,
-    "target": "esnext",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "resolveJsonModule": true,
-    "lib": ["es5", "dom"]
-  },
-  "include": ["src/**/*.json"],
-  "exclude": ["node_modules"],
   "files": [],
   "references": [
     {
@@ -20,5 +10,8 @@
     {
       "path": "./tsconfig.vitest.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "module": "NodeNext"
+  }
 }
