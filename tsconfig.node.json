@@ -11,6 +11,7 @@
 //   }
 // }
 {
+  "extends": "@tsconfig/node18/tsconfig.json",
   "compilerOptions": {
     "composite": true,
     "skipLibCheck": true,
@@ -18,5 +19,5 @@
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.*", "vitest.config.*", "cypress.config.*", "playwright.config.*"]
 }

@@ -10,6 +10,7 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "composite": true,
+    "noEmit": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
