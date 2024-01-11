@@ -51,14 +51,14 @@ defineExpose({
 <template>
   <div class="body w-100 p-5 center">
     <div class="row align-items-center teste">
-      <div class="col align-self-center text-center">
+      <div class="col align-self-center text-center info">
         <h1><b>Learn to code by watching others</b></h1>
         <p>
           See how experienced developers solve problems in real-time. Watching scripted tutorials is
           great, but understanding how developers think is invaluable.
         </p>
       </div>
-      <div class="col align-self-center text-center">
+      <div class="col align-self-center text-center form">
         <div class="card p-3">
           <Form
             @submit="(value) => onSubmit(value)"
@@ -107,6 +107,17 @@ defineExpose({
 </template>
 
 <style scoped>
+.row {
+  justify-content: center;
+}
+.info {
+  min-width: 400px;
+  max-width: 650px;
+}
+.form {
+  min-width: 460px;
+  max-width: 650px;
+}
 .submit-btn {
   background: var(--Primary-Green);
   outline: none;
@@ -150,12 +161,14 @@ p {
   width: 100vw;
 }
 .teste {
+  gap: 2rem;
   width: 100%;
   height: 80%;
 }
 .center {
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 h1 {
   color: white;

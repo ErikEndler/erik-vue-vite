@@ -42,31 +42,67 @@ function update(value: any) {
     </Teleport>
     <div id="titleModals" class="center"><h1>Modals</h1></div>
     <div class="mt-5">
-      <div class="main-card">
-        <div id="modalConfirme" class="my-cards">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{{ $t('modals.card1.title') }}</h5>
-              <p id="" class="card-text">
-                {{ $t('modals.card1.description') }}
-              </p>
-              <button id="" class="btn btn-primary" @click="openModalConfirme">
-                {{ $t('modals.card1.button') }}
-              </button>
-            </div>
+      <div class="row align-items-center">
+        <div class="col align-self-center text-center about">
+          <p>
+            {{ $t('modals.description.p1') }}
+            <a href="https://vuejs.org/guide/built-ins/teleport.html" target="_blank"> Link </a>
+          </p>
+          <!-- <p>{{ $t('modals.description.p2') }}<a href="">Link</a></p> -->
+          <p>
+            {{ $t('modals.description.p3') }}
+            <a
+              href="https://github.com/ErikEndler/erik-vue-vite/blob/main/src/views/ModalsView.vue"
+              target="_blank"
+            >
+              Link
+            </a>
+          </p>
+          <p>{{ $t('modals.description.p4') }}</p>
+          <div class="text-start">
+            <code class="code">
+              <span>
+                &#60;Teleport to="#modal"&#62; <br />
+                <span>&emsp;&emsp;&#60;component</span> <br />
+                <span>&emsp;&emsp;&emsp;&emsp;:is="modal.component.value"</span> <br />
+                <span>&emsp;&emsp;&emsp;&emsp;:displayProp="modal.show.value"</span> <br />
+                <span>&emsp;&emsp;&emsp;&emsp;:config="config"</span> <br />
+                <span>&emsp;&emsp;&emsp;&emsp;@confirmeModal="update"</span> <br />
+                <span>&emsp;&emsp;&emsp;&emsp;@closeModal="modal.hideModal"</span> <br />
+                <span>&emsp;&emsp;/&#62;</span> <br />
+                <span>&#60;/Teleport&#62;</span>
+              </span>
+            </code>
           </div>
         </div>
-        <div id="" class="my-cards">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{{ $t('modals.card2.title') }}</h5>
-              <p id="" class="card-text">
-                {{ $t('modals.card2.description') }}
-                <span class="value-edit">{{ state.valueEdit }}</span>
-              </p>
-              <button id="" class="btn btn-primary" @click="openModalValue">
-                {{ $t('modals.card2.button') }}
-              </button>
+        <div class="col align-self-center text-center">
+          <div class="main-card">
+            <div id="modalConfirme" class="my-cards">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ $t('modals.card1.title') }}</h5>
+                  <p id="" class="card-text">
+                    {{ $t('modals.card1.description') }}
+                  </p>
+                  <button id="" class="btn btn-primary" @click="openModalConfirme">
+                    {{ $t('modals.card1.button') }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div id="" class="my-cards">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ $t('modals.card2.title') }}</h5>
+                  <p id="" class="card-text">
+                    {{ $t('modals.card2.description') }}
+                    <span class="value-edit">{{ state.valueEdit }}</span>
+                  </p>
+                  <button id="" class="btn btn-primary" @click="openModalValue">
+                    {{ $t('modals.card2.button') }}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -75,10 +111,23 @@ function update(value: any) {
   </div>
 </template>
 <style scoped lang="scss">
+.about {
+  text-align: center;
+  margin: 2rem 5% 2rem 5%;
+  padding: 1rem;
+  box-shadow: 0px 0px 8px 2px var(--Violet);
+  border-radius: 1em;
+  min-width: 332px;
+}
+.code {
+  display: flex;
+  justify-content: center;
+}
 .value-edit {
   color: var(--Soft-blue);
 }
 .main-card {
+  margin: 2rem 0 2rem 0;
   display: flex;
   flex-wrap: wrap;
   gap: 30px;

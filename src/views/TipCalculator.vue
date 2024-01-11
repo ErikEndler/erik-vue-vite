@@ -86,7 +86,6 @@ defineExpose({
                 placeholder="0"
                 id="bill"
               />
-              state.bill{{ state.bill }}
               <label class="mt-4" for="percent">Select Tip %</label>
               <div class="row mt-3 row-cols-3">
                 <div class="col-4">
