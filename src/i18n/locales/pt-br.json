@@ -24,6 +24,12 @@
       "title": "Modal Formulário",
       "description": "Aqui voce vera um modal com formulário, digite um valor ele retorna e sera exibido aqui =>",
       "button": "Abrir Modal"
+    },
+    "description": {
+      "p1": "O uso/exibição de modais aqui é feito usando o <Teleport>",
+      "p2": "Artigo ... em breve ",
+      "p3": "Para mais detalhes da implementação, acesse repositório",
+      "p4": "Exemplo da implementação:"
     }
   },
   "home": {
@@ -31,7 +37,8 @@
       "p1": "Este projeto é destinado ao estudo e aperfeiçoamento em Vue3 e front-end skills.",
       "p2": "O projeto usa Vue 3 com Vite, Bootstrap {bootstrap} e TypeScript.",
       "p3": "Usado Pinia para acessar o store.",
-      "p4": "Usado vitest para testes unitários"
+      "p4": "Usado vitest para testes unitários.",
+      "p5": "i18n para internacionalização."
     },
     "card1": {
       "title": "Formulário Simples",
@@ -40,7 +47,7 @@
     },
     "card2": {
       "title": "Modais",
-      "description": "Aqui você verá exemplos de modais usando componete <Teleport>",
+      "description": "Aqui você verá exemplos de modais usando componente <Teleport>",
       "button": "Ir Modais"
     },
     "card3": {

@@ -24,6 +24,12 @@
       "title": "Form Modal",
       "description": "Here you will see a Form Modal, enter a value it returns and will be displayed here =>",
       "button": "Open Modal"
+    },
+    "description": {
+      "p1": "The use/display of modals here is done using the <Teleport>",
+      "p2": "Article... coming soon ",
+      "p3": "For more implementation details, visit the repository",
+      "p4": "Implementation example:"
     }
   },
   "home": {
@@ -31,7 +37,8 @@
       "p1": "This project is intended for study and improvement in Vue3 and front-end skills.",
       "p2": "The project uses Vue 3 with Vite, Bootstrap {bootstrap} and TypeScript.",
       "p3": "Used Pinia to access store.",
-      "p4": "Used vitest for unit testing"
+      "p4": "Used vitest for unit testing.",
+      "p5": "i18n for internationalization."
     },
     "card1": {
       "title": "Simple Form",

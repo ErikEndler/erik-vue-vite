@@ -21,7 +21,7 @@ function openModalCustom() {
 }
 
 function changeCustomTip(value: number) {
-  state.tipCustom = value as number
+  state.tipCustom = value
   selectTip(value)
 }
 
@@ -59,7 +59,6 @@ defineExpose({
 <template>
   <div class="page-tipe">
     <Teleport to="#modal">
-      <!-- <ModalConfirme :exibir="modal.show.value" @fechar-modal="modal.hideModal" /> -->
       <component
         :is="modal.component.value"
         :displayProp="modal.show.value"
@@ -86,7 +85,6 @@ defineExpose({
                 placeholder="0"
                 id="bill"
               />
-              state.bill{{ state.bill }}
               <label class="mt-4" for="percent">Select Tip %</label>
               <div class="row mt-3 row-cols-3">
                 <div class="col-4">

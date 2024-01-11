@@ -16,6 +16,7 @@ function goTo(destiny: string) {
       <p>{{ $t('home.description.p2', { bootstrap: '5.3' }) }}</p>
       <p>{{ $t('home.description.p3') }}</p>
       <p>{{ $t('home.description.p4') }}</p>
+      <p>{{ $t('home.description.p5') }}</p>
     </div>
     <div>
       <div class="main-card">
