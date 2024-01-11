@@ -31,7 +31,6 @@ function update(value: any) {
 <template>
   <div class="page">
     <Teleport to="#modal">
-      <!-- <ModalConfirme :exibir="modal.show.value" @fechar-modal="modal.hideModal" /> -->
       <component
         :is="modal.component.value"
         :displayProp="modal.show.value"

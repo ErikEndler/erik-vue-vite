@@ -7,6 +7,7 @@ import waitForExpect from 'wait-for-expect'
 
 function mountTipCalculator() {
   const wrapper = mount(TipCalculator, {
+    attachTo: document.body,
     global: {
       plugins: [router, i18n],
       mocks: { t: (key: string) => key }
@@ -16,6 +17,9 @@ function mountTipCalculator() {
 }
 
 describe('mount component: TipCalculator', () => {
+  const el = document.createElement('div')
+  el.id = 'modal'
+  document.body.appendChild(el)
   const wrapper = mountTipCalculator()
   const billInput = wrapper.find('input[name="bill"]') as DOMWrapper<HTMLInputElement>
   const peopleInput = wrapper.find('input[name="people"]') as DOMWrapper<HTMLInputElement>
@@ -27,7 +31,6 @@ describe('mount component: TipCalculator', () => {
     await billInput.setValue(100 as number)
     await flushPromises()
     await waitForExpect(() => {
-      wrapper.vm.state.bill
       expect(wrapper.vm.state.bill).toEqual(100)
       expect(wrapper.vm.state.tipPerson).toEqual(5)
       expect(wrapper.vm.state.personTotal).toEqual(105)
@@ -38,7 +41,6 @@ describe('mount component: TipCalculator', () => {
     await wrapper.find('[id="tip-10"]').trigger('click')
     await flushPromises()
     await waitForExpect(() => {
-      wrapper.vm.state.bill
       expect(wrapper.vm.state.bill).toEqual(100)
       expect(wrapper.vm.state.tipPerson).toEqual(10)
       expect(wrapper.vm.state.personTotal).toEqual(110)
@@ -49,7 +51,6 @@ describe('mount component: TipCalculator', () => {
     await peopleInput.setValue(4)
     await flushPromises()
     await waitForExpect(() => {
-      wrapper.vm.state.bill
       expect(wrapper.vm.state.bill).toEqual(100)
       expect(wrapper.vm.state.tipPerson).toEqual(2.5)
       expect(wrapper.vm.state.personTotal).toEqual(27.5)

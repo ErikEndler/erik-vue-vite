@@ -83,7 +83,4 @@ defineExpose({
   --bs-modal-header-border-width: outset;
   background: var(--Violet);
 }
-/* .modal-body {
-  background: var(--Dark-blue);
-} */
 </style>

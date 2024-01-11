@@ -34,10 +34,7 @@ defineExpose({
 
   --bs-body-bg: var(--Very-Dark-Blue);
   --form-select-indicator-color: white;
-  //background-color: var(--Very-Dark-Blue) !important;
-
   border: 1px solid var(--White-text) !important;
-
   color: var(--White-text) !important;
 }
 </style>

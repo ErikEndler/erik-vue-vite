@@ -166,7 +166,6 @@ input:focus {
 }
 .help-message {
   font-weight: 700;
-  /* position: absolute; */
   bottom: calc(-1.5 * 1em);
   text-align: left;
   left: 0;
