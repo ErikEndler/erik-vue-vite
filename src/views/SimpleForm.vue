@@ -33,8 +33,8 @@ setLocale({
 let schema = Yup.object().shape({
   name: Yup.string().required(() => t('simpleForm.fields.errorMessage.name')),
   email: Yup.string()
-    .email()
-    .required(() => t('simpleForm.fields.errorMessage.email')),
+    .email(() => t('simpleForm.fields.errorMessage.email'))
+    .required(() => t('simpleForm.fields.errorMessage.emailRequired')),
   password: Yup.string()
     .min(6)
     .required(() => t('simpleForm.fields.errorMessage.password')),
