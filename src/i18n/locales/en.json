@@ -81,12 +81,28 @@
       },
       "errorMessage": {
         "name": "Name is a required field",
-        "email": "Email is a required field",
+        "emailRequired": "Email is a required field",
+        "email": "Email must be a valid email",
         "password": "Password is a required field",
         "passwordMin": "password must be at least {min} characters",
         "confirmPassword": "Confirm Password",
         "passwordNotMatch": "Passwords do not match"
       }
+    }
+  },
+  "tipCalculator": {
+    "fields": {
+      "bill": "Bill",
+      "selectTip": "Select Tip %",
+      "numberOfPeople": "Number of people",
+      "tipAmount": "Tip Amount",
+      "total": "Total",
+      "/person": "/Person",
+      "custom": "CUSTOM"
+    },
+    "modal": {
+      "label": "Tip Custom %",
+      "title": "Tip Custom"
     }
   },
   "validation": {

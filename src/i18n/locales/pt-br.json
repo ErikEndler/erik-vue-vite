@@ -81,12 +81,28 @@
       },
       "errorMessage": {
         "name": "Nome é um campo obrigatório",
-        "email": "Email é um campo obrigatório",
+        "emailRequired": "Email é um campo obrigatório",
+        "email": "O e-mail deve ser um e-mail válido",
         "password": "Senha é um campo obrigatório",
         "passwordMin": "Senha deve ter pelo menos {min} caracteres",
         "confirmPassword": "Confirmar Senha",
         "passwordNotMatch": "As senhas não coincidem"
       }
+    }
+  },
+  "tipCalculator": {
+    "fields": {
+      "bill": "Valor Conta",
+      "selectTip": "Selecione Gorjeta %",
+      "numberOfPeople": "Número de Pessoas",
+      "tipAmount": "Gorjeta",
+      "total": "Total",
+      "/person": "/ Pessoa",
+      "custom": "OUTRO"
+    },
+    "modal": {
+      "label": "Valor Gorjeta %",
+      "title": "Gorjeta Personalizada"
     }
   },
   "validation": {
