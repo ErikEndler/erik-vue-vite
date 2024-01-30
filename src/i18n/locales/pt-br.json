@@ -57,6 +57,11 @@
     }
   },
   "simpleForm": {
+    "list": {
+      "id": "id",
+      "fullName": "Nome Completo",
+      "email": "Email"
+    },
     "title": "Aprenda a codificar observando os outros",
     "description": "Veja como desenvolvedores experientes resolvem problemas em tempo real. Assistir a tutoriais com script é ótimo, mas entender como os desenvolvedores pensam é inestimável.",
     "button": { "submit": "Enviar" },

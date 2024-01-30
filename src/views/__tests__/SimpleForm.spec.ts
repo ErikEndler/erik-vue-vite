@@ -5,6 +5,29 @@ import router from '@/router'
 import i18n from '@/i18n/index'
 import waitForExpect from 'wait-for-expect'
 
+// mock axios requests
+vi.mock('axios', () => {
+  return {
+    default: {
+      post: vi.fn(() => Promise.resolve({})),
+      get: vi.fn(),
+      delete: vi.fn(),
+      put: vi.fn(),
+      create: vi.fn().mockReturnThis(),
+      interceptors: {
+        request: {
+          use: vi.fn(),
+          eject: vi.fn()
+        },
+        response: {
+          use: vi.fn(),
+          eject: vi.fn()
+        }
+      }
+    }
+  }
+})
+
 function mountSimpleForm() {
   const wrapper = mount(SimpleForm, {
     global: {

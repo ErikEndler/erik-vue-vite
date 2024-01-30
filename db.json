@@ -1,9 +1,25 @@
 {
-  "posts": [
+  "simpleForm": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "fullName": "ERIK SANTOS ENDLER",
+      "email": "erik_endler@hotmail.com",
+      "passWord": "123456",
+      "confirmPassword": "123456",
+      "id": 1
+    },
+    {
+      "fullName": "ERIK SANTOS ENDLER",
+      "email": "erikendler2@gmail.com",
+      "passWord": "111111",
+      "confirmPassword": "111111",
+      "id": 2
+    },
+    {
+      "fullName": "ERIK SANTOS ENDLER",
+      "email": "karenendler@hotmail.com",
+      "passWord": "222222",
+      "confirmPassword": "222222",
+      "id": 3
     }
   ],
   "comments": [
