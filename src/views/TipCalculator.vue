@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { markRaw, reactive, ref, watch } from 'vue'
+import { markRaw, reactive, ref, watch, computed } from 'vue'
 import TextInput from '@/components/TextInput.vue'
 import { Form } from 'vee-validate'
 import { useModal } from '@/composables/useModal'
 import ModalForm, { type ConfigModalForm } from '@/components/modals/ModalForm.vue'
+import { useI18n } from 'vue-i18n'
 
 const modal = useModal()
+const { t } = useI18n()
 
 const state = reactive({
   bill: 0,
@@ -42,16 +44,20 @@ watch(
     calculateTotal()
   }
 )
-const config = ref<ConfigModalForm>({
-  valueCustom: state.tipCustom,
-  label: 'Tip Custom',
-  title: 'Tip Custom',
-  type: 'number',
-  classInput: 'input-tip',
-  classLabel: 'label-tip',
-  classModal: 'page-tipe',
-  classHeader: 'page-tipe'
+
+const config = computed(() => {
+  return ref<ConfigModalForm>({
+    valueCustom: state.tipCustom,
+    label: t('tipCalculator.modal.label'),
+    title: t('tipCalculator.modal.title'),
+    type: 'number',
+    classInput: 'input-tip',
+    classLabel: 'label-tip',
+    classModal: 'page-tipe',
+    classHeader: 'page-tipe'
+  })
 })
+
 defineExpose({
   state
 })
@@ -62,7 +68,7 @@ defineExpose({
       <component
         :is="modal.component.value"
         :displayProp="modal.show.value"
-        :config="config"
+        :config="config.value"
         @confirmeModal="changeCustomTip"
         @closeModal="modal.hideModal"
       />
@@ -81,11 +87,11 @@ defineExpose({
                 classInput="input-tip"
                 nameProp="bill"
                 type="number"
-                label="Bill"
+                :label="$t('tipCalculator.fields.bill')"
                 placeholder="0"
                 id="bill"
               />
-              <label class="mt-4" for="percent">Select Tip %</label>
+              <label class="mt-4" for="percent">{{ $t('tipCalculator.fields.selectTip') }}</label>
               <div class="row mt-3 row-cols-3">
                 <div class="col-4">
                   <button
@@ -151,7 +157,7 @@ defineExpose({
                     type="button"
                   >
                     <span v-if="state.tipCustom > 0">{{ state.tipCustom }}%</span>
-                    <span v-else>CUSTOM</span>
+                    <span v-else> {{ $t('tipCalculator.fields.custom') }}</span>
                   </button>
                 </div>
               </div>
@@ -161,7 +167,7 @@ defineExpose({
                 classInput="input-tip"
                 nameProp="people"
                 type="number"
-                label="Number of People"
+                :label="$t('tipCalculator.fields.numberOfPeople')"
                 placeholder="0"
                 id="people"
               />
@@ -170,21 +176,21 @@ defineExpose({
         </div>
         <div class="col-12 col-lg-6">
           <div class="card card-3">
-            <div class="row my-5">
-              <div class="col ms-4 center result-label">
-                Tip Amount <br />
-                /person
+            <div class="row my-5 card-3-child">
+              <div class="row result-label">
+                {{ $t('tipCalculator.fields.tipAmount') }} <br />
+                {{ $t('tipCalculator.fields./person') }}
               </div>
-              <div class="col text-coin me-4 result">
+              <div class="row text-coin result">
                 {{ $n(state.tipPerson, 'currencyFormat') }}
               </div>
             </div>
-            <div class="row my-3">
-              <div class="center col ms-3 result-label">
-                Total <br />
-                /person
+            <div class="row my-3 card-3-child">
+              <div class="row result-label">
+                {{ $t('tipCalculator.fields.total') }} <br />
+                {{ $t('tipCalculator.fields./person') }}
               </div>
-              <div class="col text-coin me-3 result">
+              <div class="row text-coin result">
                 {{ $n(state.personTotal, 'currencyFormat') }}
               </div>
             </div>
@@ -192,14 +198,22 @@ defineExpose({
         </div>
       </div>
     </div>
+    <div class="card row card-4">
+      <h1 class="center"><b>Info</b></h1>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+        been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+        galley of type and scrambled it to make a type specimen book. It has survived not only five
+        centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+        It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+        passages, and more recently with desktop publishing software like Aldus PageMaker including
+        versions of Lorem Ipsum.
+      </p>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.form-control {
-  width: 100px;
-  height: 45px;
-}
 .page-tipe {
   font-family: 'Space Mono', monospace;
   background-color: var(--Light-grayish-cyan) !important;
@@ -228,14 +242,7 @@ defineExpose({
   color: var(--Very-dark-cyan) !important;
   border: 2px solid var(--Strong-cyan);
 }
-.input-editable {
-  position: relative;
-  text-align: right;
-  margin-top: 0.25rem !important;
-  border: 2px solid var(--Strong-cyan);
-  font-size: 18px;
-  font-weight: 600;
-}
+
 .btn-custom-select {
   color: var(--Very-dark-cyan);
   background-color: var(--Strong-cyan) !important;
@@ -274,6 +281,12 @@ defineExpose({
   width: 100%;
   height: 100%;
   background-color: var(--Very-dark-cyan);
+  justify-content: center;
+}
+.card-3-child {
+  margin: 20px 0;
+  height: 50%;
+  justify-content: center;
 }
 .card-1 {
   width: 75%;
@@ -287,15 +300,40 @@ defineExpose({
   margin: 5rem auto 2rem auto;
   border-radius: 1rem;
 }
+.card-4 {
+  margin: 2rem;
+}
 .result {
   color: var(--Strong-cyan);
   font-size: 35px;
 }
 .result-label {
+  min-width: 139px;
   color: var(--Light-grayish-cyan);
   font-size: 15px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 .text-coin {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+
+  display: flex;
   text-align: center !important;
+  justify-content: center;
+  align-items: center;
 }
 </style>

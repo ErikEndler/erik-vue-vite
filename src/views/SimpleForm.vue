@@ -5,15 +5,33 @@ import TextInput from '@/components/TextInput.vue'
 import { useI18n } from 'vue-i18n'
 import { setLocale } from 'yup'
 import '@/i18n/rules/validators'
-import { toRef } from 'vue'
+import { reactive, toRef } from 'vue'
+import services from '@/services'
+import type { SimpleForm } from '@/types/Interfaces'
+import ListSimpleForm from '@/components/ListSimpleForm.vue'
 
 const { t } = useI18n()
 
 const invalid = toRef('')
 
-function onSubmit(values: any) {
-  //console.log('onsubmit =', values)
-  alert(JSON.stringify(values, null, 2))
+const state = reactive({
+  simpleForm: {} as SimpleForm,
+  list: [] as SimpleForm[]
+})
+
+function onSubmit() {
+  services.simpleForm.save(state.simpleForm)
+  alert(JSON.stringify(state.simpleForm, null, 2))
+}
+
+async function listSimpleForms() {
+  const { data, errors } = await services.simpleForm.findAll()
+  if (errors) {
+    alert(errors.message)
+  }
+  if (data) {
+    state.list = data
+  }
 }
 
 function onInvalidSubmit() {
@@ -33,8 +51,8 @@ setLocale({
 let schema = Yup.object().shape({
   name: Yup.string().required(() => t('simpleForm.fields.errorMessage.name')),
   email: Yup.string()
-    .email()
-    .required(() => t('simpleForm.fields.errorMessage.email')),
+    .email(() => t('simpleForm.fields.errorMessage.email'))
+    .required(() => t('simpleForm.fields.errorMessage.emailRequired')),
   password: Yup.string()
     .min(6)
     .required(() => t('simpleForm.fields.errorMessage.password')),
@@ -61,11 +79,12 @@ defineExpose({
       <div class="col align-self-center text-center form">
         <div class="card p-3">
           <Form
-            @submit="(value) => onSubmit(value)"
+            @submit="(value) => onSubmit()"
             :validation-schema="schema"
             @invalid-submit="onInvalidSubmit()"
           >
             <TextInput
+              v-model:value="state.simpleForm.fullName"
               id="nameInput"
               nameProp="name"
               type="text"
@@ -74,6 +93,7 @@ defineExpose({
               :success-message="$t('simpleForm.fields.successMessage.name')"
             />
             <TextInput
+              v-model:value="state.simpleForm.email"
               id="emailInput"
               nameProp="email"
               type="email"
@@ -82,6 +102,7 @@ defineExpose({
               :success-message="$t('simpleForm.fields.successMessage.email')"
             />
             <TextInput
+              v-model:value="state.simpleForm.passWord"
               id="passwordInput"
               nameProp="password"
               type="password"
@@ -90,6 +111,7 @@ defineExpose({
               :success-message="$t('simpleForm.fields.successMessage.password')"
             />
             <TextInput
+              v-model:value="state.simpleForm.confirmPassword"
               id="confirmPasswordInput"
               nameProp="confirmPassword"
               type="password"
@@ -100,6 +122,8 @@ defineExpose({
 
             <button id="submitBtn" :class="invalid" class="submit-btn" type="submit">Submit</button>
           </Form>
+          <button id="listBtn" class="submit-btn" @click="listSimpleForms">List</button>
+          <ListSimpleForm :list="state.list" />
         </div>
       </div>
     </div>
@@ -157,7 +181,7 @@ p {
   -o-background-size: cover;
   background-size: cover;
   background-color: var(--Primary-Red);
-  height: 100vh;
+  height: 100%;
   width: 100vw;
 }
 .teste {

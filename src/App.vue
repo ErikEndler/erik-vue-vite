@@ -12,7 +12,7 @@ import NavBar from './components/NavBar.vue'
 #app {
   display: flex;
   flex-flow: column;
-  height: 100vh;
+  min-height: 100vh;
 }
 .myHeader {
   flex-grow: 0;
