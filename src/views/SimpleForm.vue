@@ -70,10 +70,11 @@ defineExpose({
   <div class="body w-100 p-5 center">
     <div class="row align-items-center teste">
       <div class="col align-self-center text-center info">
-        <h1><b>Learn to code by watching others</b></h1>
+        <h1>
+          <b>{{ $t('simpleForm.title') }}</b>
+        </h1>
         <p>
-          See how experienced developers solve problems in real-time. Watching scripted tutorials is
-          great, but understanding how developers think is invaluable.
+          {{ $t('simpleForm.description') }}
         </p>
       </div>
       <div class="col align-self-center text-center form">
@@ -173,7 +174,7 @@ p {
   font-weight: 600;
   text-align: left;
 }
-.body {
+:global(body) {
   background-image: url('@/assets/images/bg-intro-desktop.png');
   /* Center and scale the image nicely */
   -webkit-background-size: cover;
@@ -184,6 +185,7 @@ p {
   height: 100%;
   width: 100vw;
 }
+
 .teste {
   gap: 2rem;
   width: 100%;

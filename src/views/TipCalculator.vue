@@ -214,6 +214,10 @@ defineExpose({
 </template>
 
 <style scoped lang="scss">
+:global(body) {
+  background-color: var(--Light-grayish-cyan) !important;
+  background: var(--Light-grayish-cyan) !important;
+}
 .page-tipe {
   font-family: 'Space Mono', monospace;
   background-color: var(--Light-grayish-cyan) !important;
@@ -230,6 +234,7 @@ defineExpose({
 }
 ::v-deep(body) {
   background-color: var(--Light-grayish-cyan) !important;
+  background: var(--Light-grayish-cyan) !important;
 }
 ::v-deep(.label-tip) {
   font-size: 14px;

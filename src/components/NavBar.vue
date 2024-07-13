@@ -23,7 +23,7 @@ defineExpose({
 </script>
 
 <template>
-  <div>
+  <div id="myHeader">
     <nav class="navbar navbar-dark navbar-expand-lg">
       <div class="container-fluid">
         <button
@@ -84,6 +84,12 @@ defineExpose({
 </template>
 
 <style scoped>
+.myHeader {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--Very-dark-blue);
+}
 .nav-item {
   margin: auto;
 }

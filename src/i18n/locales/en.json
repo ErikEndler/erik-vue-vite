@@ -62,8 +62,8 @@
       "fullName": "Full Name",
       "email": "Email"
     },
-    "title": "Learn to code by watching others",
-    "description": "See how experienced developers solve problems in real-time. Watching scripted tutorials is great, but understanding how developers think is invaluable.",
+    "title": "Simple Form",
+    "description": "See implementing a form using VeeValidate. Here an inputCustom built to work with VeeValidate is being used, Yup is being used in the rules/validations.",
     "button": { "submit": "Submit" },
     "fields": {
       "label": {

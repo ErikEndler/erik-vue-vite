@@ -2,7 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 #run lint
-npx lint-staged
+ESLINT_USE_FLAT_CONFIG=false npx lint-staged
 
 #run unit test
 npm run test:unit-commit
