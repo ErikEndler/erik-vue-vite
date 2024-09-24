@@ -21,9 +21,19 @@ describe('mount component: LanguageSwitcher', () => {
     expect(wrapper.find('[id="select-language"]').exists()).toBe(true)
   })
 
+  test('renders supported locales in select', () => {
+    const options = select.findAll('option')
+    expect(options.length).toBeGreaterThan(0) // Verifica se há opções
+    expect(options[0].text()).toBe('locale.en') // Ajuste conforme necessário
+  })
+
   test('change select', async () => {
     const spy = vi.spyOn(wrapper.vm, 'switchLanguage')
+
+    await select.setValue('fr') // Altere para um valor real
     await select.trigger('change')
+
     expect(spy).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalledWith(expect.anything()) // Verifica que a função foi chamada com um evento
   })
 })

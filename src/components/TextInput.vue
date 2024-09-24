@@ -80,20 +80,32 @@ function colar(event: Event) {
     event.preventDefault()
   }
 }
+
 function updateValue(event: Event) {
-  handleChange((event.target as HTMLInputElement).value)
+  const target = event.target as HTMLInputElement
+
+  // Atualiza inputValue com o novo valor
+  inputValue.value = target.value
+
+  // Chama handleChange para notificar vee-validate sobre a mudança
+  handleChange(inputValue.value)
+
+  // Emite o novo valor
   emit('update:value', inputValue)
 }
+
+// Observa mudanças na localidade da tradução
 watch(
   () => Tr.currentLocale,
   () => {
     if (meta.validated) validate()
   }
 )
+// Observa as mudanças na prop `value`
 watch(
   () => props.value,
-  () => {
-    inputValue.value = props.value
+  (newValue) => {
+    inputValue.value = newValue // Atualiza o valor local com o que vem da prop
   }
 )
 defineExpose({
@@ -123,8 +135,10 @@ defineExpose({
       :placeholder="placeholder"
       @blur="handleBlur"
       @paste="colar($event)"
+      :aria-describedby="idErrorMsg"
+      :aria-invalid="!!errorMessage"
     />
-    <p :id="idErrorMsg" class="help-message" v-if="errorMessage">
+    <p :id="idErrorMsg" class="help-message" v-if="errorMessage" role="alert">
       {{ errorMessage }}
     </p>
     <p :id="idSuccessMsg" class="help-message" v-show="meta.valid">

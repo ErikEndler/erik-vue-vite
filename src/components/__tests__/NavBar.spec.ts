@@ -42,12 +42,14 @@ describe('mount component: LanguageSwitcher', () => {
     expect(push).toHaveBeenCalledOnce()
     expect(push).toHaveBeenLastCalledWith({ name: 'Home' })
   })
+
   test('click SimpLe Form', async () => {
     const spy = vi.spyOn(wrapper.vm, 'goTo')
     simpleFormNavLink.trigger('click')
     expect(push).toHaveBeenCalledTimes(2)
     expect(spy).toHaveBeenLastCalledWith('SimpleForm')
   })
+
   test('click Modals', async () => {
     const spy = vi.spyOn(wrapper.vm, 'goTo')
     modalsNavLink.trigger('click')
@@ -55,6 +57,7 @@ describe('mount component: LanguageSwitcher', () => {
     expect(push).toHaveBeenCalledTimes(3)
     expect(push).toHaveBeenLastCalledWith({ name: 'Modals' })
   })
+
   test('click Tip Calculator', async () => {
     const spy = vi.spyOn(wrapper.vm, 'goTo')
     tipCalculatorNavLink.trigger('click')
@@ -62,9 +65,9 @@ describe('mount component: LanguageSwitcher', () => {
     expect(push).toHaveBeenCalledTimes(4)
     expect(push).toHaveBeenLastCalledWith({ name: 'TipCalculator' })
   })
-  test('click Tip Calculator', async () => {
-    const spy = vi.spyOn(wrapper.vm, 'clickNavBar')
-    navbarToggler.trigger('click')
-    expect(spy).toHaveBeenCalled()
+
+  test('toggles navbar visibility', async () => {
+    await navbarToggler.trigger('click')
+    expect(wrapper.vm.state.showNavBar).toBe(true) // Verifica se a navbar está visível
   })
 })

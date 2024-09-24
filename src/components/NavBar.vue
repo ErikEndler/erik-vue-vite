@@ -17,6 +17,7 @@ function clickNavBar() {
 // const show = computed(() => (state.showNavBar ? 'show' : ''))
 const collapse = computed(() => (state.showNavBar ? '' : 'collapse'))
 defineExpose({
+  state,
   clickNavBar,
   goTo
 })
