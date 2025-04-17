@@ -1,22 +1,23 @@
 <script setup lang="ts">
-import { markRaw, reactive, ref, watch, computed } from 'vue'
+import { markRaw, reactive, ref, watch, computed, onMounted } from 'vue'
 import TextInput from '@/components/TextInput.vue'
 import { Form } from 'vee-validate'
 import { useModal } from '@/composables/useModal'
 import ModalForm, { type ConfigModalForm } from '@/components/modals/ModalForm.vue'
 import { useI18n } from 'vue-i18n'
+import { useUiStore } from '@/stores/uiStore'
 
 const modal = useModal()
 const { t } = useI18n()
 
-const state = reactive({
-  bill: 0,
-  people: 1,
-  tip: 5,
-  tipCustom: 0,
-  personTotal: 0,
-  tipPerson: 0
+const uiStore = useUiStore()
+const pageBackgroundClass = 'bg-tip-calculator'
+
+onMounted(() => {
+  uiStore.setBackgroundClass(pageBackgroundClass)
 })
+
+const state = reactive({ bill: 0, people: 1, tip: 5, tipCustom: 0, personTotal: 0, tipPerson: 0 })
 function openModalCustom() {
   modal.component.value = markRaw(ModalForm)
   modal.showModal()
@@ -58,9 +59,7 @@ const config = computed(() => {
   })
 })
 
-defineExpose({
-  state
-})
+defineExpose({ state })
 </script>
 <template>
   <div class="page-tipe">
@@ -228,9 +227,7 @@ defineExpose({
   font-weight: 700;
   color: var(--Very-dark-cyan);
 }
-::v-deep(body) {
-  background-color: var(--Light-grayish-cyan) !important;
-}
+
 ::v-deep(.label-tip) {
   font-size: 14px;
   color: var(--Dark-grayish-cyan) !important;

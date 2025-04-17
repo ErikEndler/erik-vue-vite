@@ -13,6 +13,13 @@ export default mergeConfig(
       coverage: {
         provider: 'v8' // istanbul or 'v8'
       }
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          silenceDeprecations: ['mixed-decls', 'color-functions', 'global-builtin', 'import']
+        }
+      }
     }
   })
 )

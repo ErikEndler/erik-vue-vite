@@ -6,10 +6,7 @@ import router from '@/router'
 
 function mountLanguageSwitcher() {
   const wrapper = shallowMount(NavBar, {
-    global: {
-      plugins: [router, i18n],
-      mocks: { t: (key: string) => key }
-    }
+    global: { plugins: [router, i18n], mocks: { t: (key: string) => key } }
   })
   return wrapper
 }
@@ -62,7 +59,7 @@ describe('mount component: LanguageSwitcher', () => {
     expect(push).toHaveBeenCalledTimes(4)
     expect(push).toHaveBeenLastCalledWith({ name: 'TipCalculator' })
   })
-  test('click Tip Calculator', async () => {
+  test('click Tip NavBar', async () => {
     const spy = vi.spyOn(wrapper.vm, 'clickNavBar')
     navbarToggler.trigger('click')
     expect(spy).toHaveBeenCalled()

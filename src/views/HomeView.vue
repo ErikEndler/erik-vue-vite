@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import router from '../router'
 
+import { onMounted } from 'vue'
+import { useUiStore } from '@/stores/uiStore'
+
+const uiStore = useUiStore()
+
+onMounted(() => {
+  uiStore.setBackgroundClass('bg-default')
+})
+
 function goTo(destiny: string) {
   router.push({ name: destiny })
 }

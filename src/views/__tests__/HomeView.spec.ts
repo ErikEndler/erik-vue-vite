@@ -3,11 +3,14 @@ import { shallowMount } from '@vue/test-utils'
 import HomeView from '@/views/HomeView.vue'
 import router from '@/router'
 import i18n from '@/i18n/index'
+import { createPinia } from 'pinia'
 
 function mountHomeView() {
+  const pinia = createPinia() // Crie uma instância do Pinia
+
   const wrapper = shallowMount(HomeView, {
     global: {
-      plugins: [router, i18n],
+      plugins: [router, i18n, pinia],
       mocks: { t: (key: string) => key }
     }
   })

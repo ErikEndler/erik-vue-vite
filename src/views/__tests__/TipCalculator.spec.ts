@@ -4,12 +4,15 @@ import TipCalculator from '@/views/TipCalculator.vue'
 import router from '@/router'
 import i18n from '@/i18n/index'
 import waitForExpect from 'wait-for-expect'
+import { createPinia } from 'pinia' // Importe createPinia
 
 function mountTipCalculator() {
+  const pinia = createPinia() // Crie uma instância do Pinia
+
   const wrapper = mount(TipCalculator, {
     attachTo: document.body,
     global: {
-      plugins: [router, i18n],
+      plugins: [router, i18n, pinia],
       mocks: { t: (key: string) => key }
     }
   })
