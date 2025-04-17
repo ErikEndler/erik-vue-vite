@@ -34,7 +34,7 @@ describe('mount component: TipCalculator', () => {
     await billInput.setValue(100 as number)
     await flushPromises()
     await waitForExpect(() => {
-      expect(wrapper.vm.state.bill).toEqual(100)
+      expect(wrapper.vm.state.bill).toEqual(100 as number)
       expect(wrapper.vm.state.tipPerson).toEqual(5)
       expect(wrapper.vm.state.personTotal).toEqual(105)
       expect(billInput.element.value).toEqual('100')

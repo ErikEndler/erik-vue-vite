@@ -89,6 +89,24 @@ function goTo(destiny: string) {
   background: var(--Violet) !important;
   border-radius: 1em;
 }
+@media (max-width: 900px) {
+  .my-cards {
+    flex: auto;
+    min-height: 200px;
+    max-width: 400px;
+    min-width: 100%;
+    background: var(--Violet) !important;
+    border-radius: 1em;
+  }
+  .main-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
 .card {
   height: calc(100% - 40px);
   margin-top: 40px;
@@ -121,9 +139,18 @@ function goTo(destiny: string) {
 
 .about {
   text-align: center;
-  margin: 2rem 20% 2rem 20%;
+  margin: 2rem 15% 2rem 15%;
   padding: 1rem;
   box-shadow: 0px 0px 8px 2px var(--Violet);
   border-radius: 1em;
+}
+@media (max-width: 960px) {
+  .about {
+    text-align: center;
+    margin: 2rem 0rem 2rem 0rem;
+    padding: 1rem;
+    box-shadow: 0px 0px 8px 2px var(--Violet);
+    border-radius: 1em;
+  }
 }
 </style>
