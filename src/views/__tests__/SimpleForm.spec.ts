@@ -4,6 +4,7 @@ import SimpleForm from '@/views/SimpleForm.vue'
 import router from '@/router'
 import i18n from '@/i18n/index'
 import waitForExpect from 'wait-for-expect'
+import { createPinia } from 'pinia' // Importe createPinia
 
 // mock axios requests
 vi.mock('axios', () => {
@@ -29,9 +30,11 @@ vi.mock('axios', () => {
 })
 
 function mountSimpleForm() {
+  const pinia = createPinia() // Crie uma instância do Pinia
+
   const wrapper = mount(SimpleForm, {
     global: {
-      plugins: [router, i18n],
+      plugins: [router, i18n, pinia],
       mocks: { t: (key: string) => key }
     }
   })

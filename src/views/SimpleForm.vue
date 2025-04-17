@@ -5,18 +5,25 @@ import TextInput from '@/components/TextInput.vue'
 import { useI18n } from 'vue-i18n'
 import { setLocale } from 'yup'
 import '@/i18n/rules/validators'
-import { reactive, toRef } from 'vue'
+import { reactive, toRef, onMounted } from 'vue'
 import services from '@/services'
 import type { SimpleForm } from '@/types/Interfaces'
 import ListSimpleForm from '@/components/ListSimpleForm.vue'
+import { useUiStore } from '@/stores/uiStore' // Importe o hook da store
+
+const uiStore = useUiStore()
+
+const pageBackgroundClass = 'bg-simple-form'
 
 const { t } = useI18n()
 
 const invalid = toRef('')
 
-const state = reactive({
-  simpleForm: {} as SimpleForm,
-  list: [] as SimpleForm[]
+const state = reactive({ simpleForm: {} as SimpleForm, list: [] as SimpleForm[] })
+
+// Quando o componente for montado, atualize o estado na store
+onMounted(() => {
+  uiStore.setBackgroundClass(pageBackgroundClass)
 })
 
 function onSubmit() {
@@ -48,7 +55,7 @@ setLocale({
   }
 })
 
-let schema = Yup.object().shape({
+const schema = Yup.object().shape({
   name: Yup.string().required(() => t('simpleForm.fields.errorMessage.name')),
   email: Yup.string()
     .email(() => t('simpleForm.fields.errorMessage.email'))
@@ -60,20 +67,17 @@ let schema = Yup.object().shape({
     .required(() => t('simpleForm.fields.errorMessage.confirmPassword'))
     .oneOf([Yup.ref('password')], () => t('simpleForm.fields.errorMessage.passwordNotMatch'))
 })
-defineExpose({
-  onInvalidSubmit,
-  onSubmit,
-  schema
-})
+defineExpose({ onInvalidSubmit, onSubmit, schema })
 </script>
 <template>
   <div class="body w-100 p-5 center">
     <div class="row align-items-center teste">
       <div class="col align-self-center text-center info">
-        <h1><b>Learn to code by watching others</b></h1>
+        <h1>
+          <b>{{ $t('simpleForm.title') }}</b>
+        </h1>
         <p>
-          See how experienced developers solve problems in real-time. Watching scripted tutorials is
-          great, but understanding how developers think is invaluable.
+          {{ $t('simpleForm.description') }}
         </p>
       </div>
       <div class="col align-self-center text-center form">
@@ -173,17 +177,7 @@ p {
   font-weight: 600;
   text-align: left;
 }
-.body {
-  background-image: url('@/assets/images/bg-intro-desktop.png');
-  /* Center and scale the image nicely */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-color: var(--Primary-Red);
-  height: 100%;
-  width: 100vw;
-}
+
 .teste {
   gap: 2rem;
   width: 100%;

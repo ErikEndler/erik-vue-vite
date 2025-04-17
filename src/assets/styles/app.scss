@@ -1,43 +1,79 @@
-@import '~bootstrap/scss/bootstrap';
+// Seus imports existentes
 @import 'bootstrap/scss/bootstrap';
-@import 'fonts';
-@import 'colors';
+@import 'fonts'; // Assume que define Poppins e Inter
+@import 'colors'; // Assume que define --Very-dark-blue, --Pale-Blue, --Primary-Red etc.
 
 body {
-  font-family: Poppins;
-  background: var(--Very-dark-blue);
+  font-family: Poppins; // Pode remover se Inter for o principal abaixo
+  // --- ESTILOS PADRÃO (correspondem a 'bg-default' na Store Pinia) ---
+  background-color: var(--Very-dark-blue);
+  background-image: none; // Boa prática definir explicitamente
   color: var(--Pale-Blue);
+  // ------------------------------------------------------------------
+
   min-height: 100vh;
+
+  // --- TRANSIÇÃO ATUALIZADA ---
   transition:
-    color 0.5s,
-    background-color 0.5s;
+    color 0.5s ease-in-out,
+    // Mantém transição de cor do texto
+    background-color 0.5s ease-in-out,
+    // Mantém transição de cor de fundo
+    background-image 0.5s ease-in-out; // ADICIONA transição para imagem de fundo (ajuste tempo/easing)
+  // Alternativa mais curta: transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+  // -----------------------------
+
   line-height: 1.6;
   font-family:
     Inter,
     -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
+    /* ... */ sans-serif; // Define a pilha de fontes principal
   text-rendering: optimizeLegibility;
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  // Propriedades de background que podem ser compartilhadas (ou repetidas nas classes)
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
+// --- CLASSES ESPECÍFICAS DE BACKGROUND ---
+
+// Não precisamos necessariamente de '.bg-default' aqui, pois os estilos
+// base do 'body' já servem como padrão quando nenhuma outra classe é aplicada.
+// A store Pinia pode usar 'bg-default' como valor inicial/padrão,
+// e o App.vue simplesmente removerá qualquer outra classe específica.
+
+// Classe para o background do SimpleForm
+// Deve corresponder ao valor usado em setBackgroundClass('bg-simple-form')
+body.bg-simple-form {
+  // Caminho relativo ao CSS ou use alias do seu bundler (Vite/Webpack)
+  background-image: url('@/assets/images/bg-intro-desktop.png');
+  background-color: var(--Primary-Red); // Certifique-se que --Primary-Red está em colors.scss
+  // Opcional: Sobrescrever a cor do texto se necessário para contraste
+  // color: white;
+}
+
+body.bg-tip-calculator {
+  background-color: var(--Light-grayish-cyan);
+  background-image: none; // Explicitamente sem imagem
+  // Opcional: Se precisar mudar a cor do texto para contraste
+  // color: var(--Very-dark-blue);
+}
+
+// --- FIM DAS CLASSES DE BACKGROUND ---
+
+// Seus outros estilos globais existentes
 .center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 html,
 body {
   margin: 0;
-  padding: 0;
+  padding: 0; // Já estava aqui, ok.
 }

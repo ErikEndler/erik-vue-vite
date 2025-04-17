@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import { markRaw, reactive, ref } from 'vue'
+import { markRaw, reactive, ref, onMounted } from 'vue'
 import { useModal } from '@/composables/useModal'
 import ModalConfirme from '@/components/modals/ModalConfirme.vue'
 import ModalForm, { type ConfigModalForm } from '@/components/modals/ModalForm.vue'
+import { useUiStore } from '@/stores/uiStore'
 
-const state = reactive({
-  valueEdit: ''
-})
+const uiStore = useUiStore()
+
+const state = reactive({ valueEdit: '' })
 
 const modal = useModal()
 
-const config = ref<ConfigModalForm>({
-  valueCustom: '',
-  title: 'Modal Form'
+const config = ref<ConfigModalForm>({ valueCustom: '', title: 'Modal Form' })
+
+onMounted(() => {
+  uiStore.setBackgroundClass('bg-default')
 })
 
 const openModalConfirme = () => {
@@ -23,7 +25,7 @@ const openModalValue = () => {
   modal.component.value = markRaw(ModalForm)
   modal.showModal()
 }
-function update(value: any) {
+function update(value: string) {
   if (modal.component.value === markRaw(ModalForm)) state.valueEdit = value
 }
 </script>

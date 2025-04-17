@@ -23,5 +23,10 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap')
     }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: { silenceDeprecations: ['mixed-decls', 'color-functions', 'global-builtin', 'import'] }
+    }
   }
 })

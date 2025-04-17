@@ -55,4 +55,9 @@ describe('mount component: TextInput', () => {
       expect(spy).toHaveBeenCalled()
     })
   })
+  test('emits update:value on input change', async () => {
+    const newValue = 'new value' // O valor que você espera emitir
+    await input.setValue(newValue) // Simula a mudança de valor no input
+    expect(wrapper.emitted()['update:value']).toBeTruthy() // Verifica se o evento foi emitido
+  })
 })
