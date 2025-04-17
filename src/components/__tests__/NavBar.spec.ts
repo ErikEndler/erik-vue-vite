@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, test } from 'vitest'
+import { describe, it, expect, vi, test, beforeEach } from 'vitest'
 import { shallowMount } from '@vue/test-utils'
 import NavBar from '@/components/NavBar.vue'
 import i18n from '@/i18n/index'
