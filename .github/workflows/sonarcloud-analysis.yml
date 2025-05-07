@@ -4,34 +4,33 @@ name: Build, Test, Analyze & Deploy
 on:
   # Roda em pushes para o branch principal
   push:
-    branches: ['main']
+    branches: ['main'] # >>> SUBSTITUA 'main' PELO NOME CORRETO DO SEU BRANCH PRINCIPAL SE FOR DIFERENTE <<<
 
   # Roda em Pull Requests tendo o branch principal como base
   pull_request:
-    branches: ['main']
+    branches: ['main'] # >>> SUBSTITUA 'main' PELO NOME CORRETO DO SEU BRANCH PRINCIPAL SE FOR DIFERENTE <<<
     # Tipicamente, a análise em PRs é crucial, então rodar aqui é importante
 
   # Permite rodar este workflow manualmente na aba Actions
   workflow_dispatch:
 
 # Define as permissões do GITHUB_TOKEN necessárias para o deploy no GitHub Pages
-# e para que a ação do SonarCloud possa decorar o Pull Request
+# e para que a ação do SonarCloud possa decorar o Pull Request (em PRs)
 permissions:
-  # Permite que o checkout leia o código
-  contents: read
-  # Necessário para actions/deploy-pages
-  pages: write
-  # Necessário para a ação do SonarCloud se integrar com GitHub
-  id-token: write
+  contents: read   # Permite que o checkout leia o código
+  pages: write     # Necessário para actions/deploy-pages
+  id-token: write  # Necessário para a ação do SonarCloud se integrar com GitHub (para PR decoration)
 
 # Permite apenas uma execução concorrente para cada grupo de workflow/PR
 concurrency:
+  # Sintaxe mais robusta: usa o número do PR (se for PR) ou o ID da execução (se for push/manual)
   group: ${{ github.event.pull_request.number || github.run_id }}
   cancel-in-progress: true
 
 jobs:
   build-and-analyze:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # O runner do GitHub Actions (Linux)
+    # REMOVEMOS a configuração de environment do nível da job para evitar conflitos em PRs
 
     steps:
       - name: Checkout do Código
@@ -43,72 +42,67 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: 'npm'
+          node-version: 22 # >>> VERIFIQUE/AJUSTE a versão do Node.js se necessário <<<
+          cache: 'npm' # Configura cache para dependências npm
 
       - name: Instalar Dependências
         run: npm install
 
       # --- Passo de Testes de Cobertura ---
-      # Roda o script de cobertura. No runner Linux, o lcov.info deve gerar com barras normais.
+      # Roda o script de cobertura do seu package.json. No runner Linux, o lcov.info deve gerar com barras normais.
       - name: Rodar Testes e Gerar Relatório de Cobertura
-        run: npm run coverage
+        # Comando para rodar seus testes que geram cobertura. No seu package.json, este é "coverage".
+        run: npm run coverage # >>> VERIFIQUE SE ESTE É O SCRIPT CORRETO PARA RODAR TESTES COM COBERTURA <<<
 
-      # Comando de build do seu projeto Vue
       - name: Build do Projeto
-        run: npm run build
+        run: npm run build # >>> VERIFIQUE SE ESTE É O COMANDO DE BUILD CORRETO <<<
 
       # --- PASSO DE ANÁLISE DO SONARCLOUD ---
       # Este passo roda a análise e envia os resultados para o SonarCloud.
-      # Ele precisa rodar após o build (se a análise depender de arquivos gerados)
+      # Ele precisa rodar após o build.
       - name: Análise do SonarCloud
-        uses: SonarSource/sonarcloud-github-action@v2.0.0
+        uses: SonarSource/sonarcloud-github-action@v2.0.0 # Usa a ação oficial do SonarCloud
         env:
-          # GITHUB_TOKEN é usado para a decoração do Pull Request no GitHub
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # SONAR_TOKEN é o token que você gerou no SonarCloud e salvou como Secret no seu repo GitHub
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Fornecido automaticamente pelo GitHub (para decoração de PR)
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    # >>> SEU TOKEN DO SONARCLOUD (SALVO COMO SECRET NO REPOSITÓRIO GITHUB) <<<
         with:
-          # Arguments para o Sonar Scanner.
-          # Você pode omitir estes args se tiver um sonar-project.properties na raiz do repo
-          # Mas especificá-los aqui garante que a CI use os valores corretos.
+          # Arguments para o Sonar Scanner. Ajustados com base nas correções locais:
           args: >
-            -Dsonar.projectKey=ErikEndler_erik-vue-vite # SEU Project Key (Confirmado)
-            -Dsonar.organization=erikendler # SUA Organização (Confirmada)
-            # --- Ajustes nos caminhos e exclusões com base nas correções locais ---
+            -Dsonar.projectKey=ErikEndler_erik-vue-vite # >>> SEU Project Key (Confirmado) <<<
+            -Dsonar.organization=erikendler # >>> SUA Organização (Confirmada) <<<
+            # Definimos a pasta raiz para fontes E testes (onde estão os arquivos)
             -Dsonar.sources=src
+            # Definimos a pasta raiz para testes (igual a sources neste caso)
             -Dsonar.tests=src
-            # Define quais arquivos DENTRO de sonar.tests são considerados testes
-            -Dsonar.test.inclusions=**/*.spec.ts,**/*.test.ts
-            # Exclusões globais - inclua arquivos de configuração/dotfiles que causaram erro localmente
+            # Define quais arquivos DENTRO de sonar.tests (a pasta 'src') são considerados testes
+            -Dsonar.test.inclusions=**/*.spec.ts,**/*.test.ts # >>> VERIFIQUE SE ESTES SÃO OS PADRÕES CORRETOS DOS SEUS ARQUIVOS DE TESTE <<<
+            # Exclusões globais - inclui pastas geradas e arquivos de configuração/dotfiles na raiz que não devem ser analisados.
+            # Inclua AQUI quaisquer outros arquivos na raiz que causaram o erro "can't be indexed twice".
             -Dsonar.exclusions=**/node_modules/**,**/dist/**,.env,.eslintrc.cjs,*.config.js,*.config.ts,*.config.cjs,tsconfig*.json,package.json,package-lock.json,.gitattributes,.gitignore,.editorconfig,LICENSE,README.md
-            # Caminho para o relatório LCOV gerado - assumimos que no Linux runner será ./coverage/lcov.info com barras normais
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            # Caminho para o relatório LCOV gerado pelo 'npm run coverage' - assume que está em ./coverage/lcov.info
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info # >>> VERIFIQUE SE ESTE É O CAMINHO CORRETO DO SEU RELATÓRIO LCOV <<<
             # --- Relatórios de Execução de Teste (Opcional) ---
-            # Se gerar JUnit XML, descomente e ajuste o caminho:
-            # -Dsonar.testExecutionReportPaths=test-report.xml
+            # Se seu script de teste também gerar um relatório JUnit XML, descomente e ajuste o caminho:
+            # -Dsonar.testExecutionReportPaths=test-report.xml # >>> AJUSTE O CAMINHO SE USAR <<<
 
       # --- PASSO DE DEPLOY (Só roda em PUSH para o branch principal) ---
-      # Estes passos são os mesmos que você já tem para deploy no GitHub Pages.
+      # Estes passos são para o deploy no GitHub Pages.
       # A condição 'if' garante que eles NÃO rodem em Pull Requests.
+      # A configuração 'environment' está em cada passo de deploy.
       - name: Configurar GitHub Pages
-        # Roda apenas se for um push para 'main'
         if: github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v3
-        environment: github-pages
+        environment: github-pages # Aplica o ambiente AQUI (VERIFIQUE NOME EXATO NO GITHUB)
 
       - name: Upload Artifact para Pages
-        # Roda apenas se for um push para 'main'
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
-          # Caminho para sua pasta de build
-          path: './dist'
-        environment: github-pages
+          path: './dist' # >>> VERIFIQUE SE ESTE É O CAMINHO CORRETO DA SUA PASTA DE BUILD <<<
+        environment: github-pages # Aplica o ambiente AQUI (VERIFIQUE NOME EXATO NO GITHUB)
 
       - name: Deploy para GitHub Pages
-        # Roda apenas se for um push para 'main'
         if: github.ref == 'refs/heads/main'
         id: deployment
         uses: actions/deploy-pages@v2
-        environment: github-pages
+        environment: github-pages # Aplica o ambiente AQUI (VERIFIQUE NOME EXATO NO GITHUB)
