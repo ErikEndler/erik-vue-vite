@@ -1,0 +1,114 @@
+# Workflow para Análise do SonarCloud e Deploy para GitHub Pages
+name: Build, Test, Analyze & Deploy
+
+on:
+  # Roda em pushes para o branch principal
+  push:
+    branches: ['main']
+
+  # Roda em Pull Requests tendo o branch principal como base
+  pull_request:
+    branches: ['main']
+    # Tipicamente, a análise em PRs é crucial, então rodar aqui é importante
+
+  # Permite rodar este workflow manualmente na aba Actions
+  workflow_dispatch:
+
+# Define as permissões do GITHUB_TOKEN necessárias para o deploy no GitHub Pages
+# e para que a ação do SonarCloud possa decorar o Pull Request
+permissions:
+  # Permite que o checkout leia o código
+  contents: read
+  # Necessário para actions/deploy-pages
+  pages: write
+  # Necessário para a ação do SonarCloud se integrar com GitHub
+  id-token: write
+
+# Permite apenas uma execução concorrente para cada grupo de workflow/PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-analyze:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+        with:
+          # Fetch-depth 0 é necessário para a análise do SonarCloud (histórico completo do Git)
+          fetch-depth: 0
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Instalar Dependências
+        run: npm install
+
+      # --- Passo de Testes de Cobertura ---
+      # Roda o script de cobertura. No runner Linux, o lcov.info deve gerar com barras normais.
+      - name: Rodar Testes e Gerar Relatório de Cobertura
+        run: npm run coverage
+
+      # Comando de build do seu projeto Vue
+      - name: Build do Projeto
+        run: npm run build
+
+      # --- PASSO DE ANÁLISE DO SONARCLOUD ---
+      # Este passo roda a análise e envia os resultados para o SonarCloud.
+      # Ele precisa rodar após o build (se a análise depender de arquivos gerados)
+      - name: Análise do SonarCloud
+        uses: SonarSource/sonarcloud-github-action@v2.0.0
+        env:
+          # GITHUB_TOKEN é usado para a decoração do Pull Request no GitHub
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # SONAR_TOKEN é o token que você gerou no SonarCloud e salvou como Secret no seu repo GitHub
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          # Arguments para o Sonar Scanner.
+          # Você pode omitir estes args se tiver um sonar-project.properties na raiz do repo
+          # Mas especificá-los aqui garante que a CI use os valores corretos.
+          args: >
+            -Dsonar.projectKey=ErikEndler_erik-vue-vite # SEU Project Key (Confirmado)
+            -Dsonar.organization=erikendler # SUA Organização (Confirmada)
+            # --- Ajustes nos caminhos e exclusões com base nas correções locais ---
+            -Dsonar.sources=src
+            -Dsonar.tests=src
+            # Define quais arquivos DENTRO de sonar.tests são considerados testes
+            -Dsonar.test.inclusions=**/*.spec.ts,**/*.test.ts
+            # Exclusões globais - inclua arquivos de configuração/dotfiles que causaram erro localmente
+            -Dsonar.exclusions=**/node_modules/**,**/dist/**,.env,.eslintrc.cjs,*.config.js,*.config.ts,*.config.cjs,tsconfig*.json,package.json,package-lock.json,.gitattributes,.gitignore,.editorconfig,LICENSE,README.md
+            # Caminho para o relatório LCOV gerado - assumimos que no Linux runner será ./coverage/lcov.info com barras normais
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            # --- Relatórios de Execução de Teste (Opcional) ---
+            # Se gerar JUnit XML, descomente e ajuste o caminho:
+            # -Dsonar.testExecutionReportPaths=test-report.xml
+
+      # --- PASSO DE DEPLOY (Só roda em PUSH para o branch principal) ---
+      # Estes passos são os mesmos que você já tem para deploy no GitHub Pages.
+      # A condição 'if' garante que eles NÃO rodem em Pull Requests.
+      - name: Configurar GitHub Pages
+        # Roda apenas se for um push para 'main'
+        if: github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v3
+
+      - name: Upload Artifact para Pages
+        # Roda apenas se for um push para 'main'
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Caminho para sua pasta de build
+          path: './dist'
+
+      - name: Deploy para GitHub Pages
+        # Roda apenas se for um push para 'main'
+        if: github.ref == 'refs/heads/main'
+        id: deployment
+        uses: actions/deploy-pages@v2

@@ -11,7 +11,9 @@ export default mergeConfig(
       exclude: [...configDefaults.exclude, 'e2e/*'],
       root: fileURLToPath(new URL('./', import.meta.url)),
       coverage: {
-        provider: 'v8' // istanbul or 'v8'
+        provider: 'v8', // istanbul or 'v8'
+        // --- Adicione esta linha para especificar os formatos dos relatórios ---
+        reporter: ['text', 'lcov', 'json', 'html']
       }
     },
     css: {

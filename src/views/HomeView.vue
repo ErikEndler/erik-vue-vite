@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import router from '../router'
-
 import { onMounted } from 'vue'
 import { useUiStore } from '@/stores/uiStore'
+import { useI18n } from 'vue-i18n'
 
 const uiStore = useUiStore()
+
+const { t } = useI18n()
 
 onMounted(() => {
   uiStore.setBackgroundClass('bg-default')
@@ -19,25 +21,23 @@ function goTo(destiny: string) {
   <div class="pagina">
     <div id="title" class="center"><h1>Welcome to Erik's vue3 project</h1></div>
     <div class="about">
-      <!-- <p>{{ $n(1456, 'currencyFormat') }}</p>
-      <p>{{ $t('about.donations', { donations: $n(1456, 'currencyFormat') }) }}</p> -->
-      <p>{{ $t('home.description.p1') }}</p>
-      <p>{{ $t('home.description.p2', { bootstrap: '5.3' }) }}</p>
-      <p>{{ $t('home.description.p3') }}</p>
-      <p>{{ $t('home.description.p4') }}</p>
-      <p>{{ $t('home.description.p5') }}</p>
+      <p>{{ t('home.description.p1') }}</p>
+      <p>{{ t('home.description.p2', { bootstrap: '5.3' }) }}</p>
+      <p>{{ t('home.description.p3') }}</p>
+      <p>{{ t('home.description.p4') }}</p>
+      <p>{{ t('home.description.p5') }}</p>
     </div>
     <div>
       <div class="main-card">
         <div class="my-cards">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">{{ $t('home.card1.title') }}</h5>
+              <h5 class="card-title">{{ t('home.card1.title') }}</h5>
               <p class="card-text">
-                {{ $t('home.card1.description') }}
+                {{ t('home.card1.description') }}
               </p>
               <button id="btn-simple-form" class="btn btn-primary" @click="goTo('SimpleForm')">
-                {{ $t('home.card1.button') }}
+                {{ t('home.card1.button') }}
               </button>
             </div>
           </div>
@@ -45,12 +45,12 @@ function goTo(destiny: string) {
         <div class="my-cards">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">{{ $t('home.card2.title') }}</h5>
+              <h5 class="card-title">{{ t('home.card2.title') }}</h5>
               <p class="card-text">
-                {{ $t('home.card2.description') }}
+                {{ t('home.card2.description') }}
               </p>
               <button id="btn-modal" class="btn btn-primary" @click="goTo('Modals')">
-                {{ $t('home.card2.button') }}
+                {{ t('home.card2.button') }}
               </button>
             </div>
           </div>
@@ -58,12 +58,12 @@ function goTo(destiny: string) {
         <div class="my-cards">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">{{ $t('home.card3.title') }}</h5>
+              <h5 class="card-title">{{ t('home.card3.title') }}</h5>
               <p class="card-text">
-                {{ $t('home.card3.description') }}
+                {{ t('home.card3.description') }}
               </p>
               <button id="btn-simple-form" class="btn btn-primary" @click="goTo('TipCalculator')">
-                {{ $t('home.card3.button') }}
+                {{ t('home.card3.button') }}
               </button>
             </div>
           </div>

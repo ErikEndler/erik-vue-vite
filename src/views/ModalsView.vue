@@ -4,6 +4,9 @@ import { useModal } from '@/composables/useModal'
 import ModalConfirme from '@/components/modals/ModalConfirme.vue'
 import ModalForm, { type ConfigModalForm } from '@/components/modals/ModalForm.vue'
 import { useUiStore } from '@/stores/uiStore'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const uiStore = useUiStore()
 
@@ -46,12 +49,11 @@ function update(value: string) {
       <div class="row align-items-center">
         <div class="col align-self-center text-center about">
           <p>
-            {{ $t('modals.description.p1') }}
+            {{ t('modals.description.p1') }}
             <a href="https://vuejs.org/guide/built-ins/teleport.html" target="_blank"> Link </a>
           </p>
-          <!-- <p>{{ $t('modals.description.p2') }}<a href="">Link</a></p> -->
           <p>
-            {{ $t('modals.description.p3') }}
+            {{ t('modals.description.p3') }}
             <a
               href="https://github.com/ErikEndler/erik-vue-vite/blob/main/src/views/ModalsView.vue"
               target="_blank"
@@ -59,7 +61,7 @@ function update(value: string) {
               Link
             </a>
           </p>
-          <p>{{ $t('modals.description.p4') }}</p>
+          <p>{{ t('modals.description.p4') }}</p>
           <div class="text-start">
             <code class="code">
               <span>
@@ -81,12 +83,12 @@ function update(value: string) {
             <div id="modalConfirme" class="my-cards">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">{{ $t('modals.card1.title') }}</h5>
+                  <h5 class="card-title">{{ t('modals.card1.title') }}</h5>
                   <p id="" class="card-text">
-                    {{ $t('modals.card1.description') }}
+                    {{ t('modals.card1.description') }}
                   </p>
                   <button id="" class="btn btn-primary" @click="openModalConfirme">
-                    {{ $t('modals.card1.button') }}
+                    {{ t('modals.card1.button') }}
                   </button>
                 </div>
               </div>
@@ -94,13 +96,13 @@ function update(value: string) {
             <div id="" class="my-cards">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">{{ $t('modals.card2.title') }}</h5>
+                  <h5 class="card-title">{{ t('modals.card2.title') }}</h5>
                   <p id="" class="card-text">
-                    {{ $t('modals.card2.description') }}
+                    {{ t('modals.card2.description') }}
                     <span class="value-edit">{{ state.valueEdit }}</span>
                   </p>
                   <button id="" class="btn btn-primary" @click="openModalValue">
-                    {{ $t('modals.card2.button') }}
+                    {{ t('modals.card2.button') }}
                   </button>
                 </div>
               </div>
