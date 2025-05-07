@@ -4,11 +4,11 @@ name: Build, Test, Analyze & Deploy
 on:
   # Roda em pushes para o branch principal
   push:
-    branches: ['main'] # >>> SUBSTITUA 'main' PELO NOME CORRETO DO SEU BRANCH PRINCIPAL SE FOR DIFERENTE <<<
+    branches: ['main']
 
   # Roda em Pull Requests tendo o branch principal como base
   pull_request:
-    branches: ['main'] # >>> SUBSTITUA 'main' PELO NOME CORRETO DO SEU BRANCH PRINCIPAL SE FOR DIFERENTE <<<
+    branches: ['main']
     # Tipicamente, a análise em PRs é crucial, então rodar aqui é importante
 
   # Permite rodar este workflow manualmente na aba Actions
@@ -43,8 +43,8 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22 # >>> VERIFIQUE/AJUSTE a versão do Node.js se necessário <<<
-          cache: 'npm' # Configura cache para dependências npm
+          node-version: 22
+          cache: 'npm'
 
       - name: Instalar Dependências
         run: npm install
@@ -53,38 +53,38 @@ jobs:
       # Roda o script de cobertura do seu package.json. No runner Linux, o lcov.info deve gerar com barras normais.
       - name: Rodar Testes e Gerar Relatório de Cobertura
         # Comando para rodar seus testes que geram cobertura. No seu package.json, este é "coverage".
-        run: npm run coverage # >>> VERIFIQUE SE ESTE É O SCRIPT CORRETO PARA RODAR TESTES COM COBERTURA <<<
+        run: npm run coverage
 
       - name: Build do Projeto
-        run: npm run build # >>> VERIFIQUE SE ESTE É O COMANDO DE BUILD CORRETO <<<
+        run: npm run build
 
       # --- PASSO DE ANÁLISE DO SONARCLOUD ---
       # Este passo roda a análise e envia os resultados para o SonarCloud.
       # Ele precisa rodar após o build.
       - name: Análise do SonarCloud
-        uses: SonarSource/sonarcloud-github-action@v2.0.0 # Usa a ação oficial do SonarCloud
+        uses: SonarSource/sonarcloud-github-action@v2.0.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Fornecido automaticamente pelo GitHub (para decoração de PR)
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # >>> SEU TOKEN DO SONARCLOUD (SALVO COMO SECRET NO REPOSITÓRIO GITHUB) <<<
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           # Arguments para o Sonar Scanner. Ajustados com base nas correções locais:
           args: >
-            -Dsonar.projectKey=ErikEndler_erik-vue-vite # >>> SEU Project Key (Confirmado) <<<
-            -Dsonar.organization=erikendler # >>> SUA Organização (Confirmada) <<<
+            -Dsonar.projectKey=ErikEndler_erik-vue-vite
+            -Dsonar.organization=erikendler
             # Definimos a pasta raiz para fontes E testes (onde estão os arquivos)
             -Dsonar.sources=src
             # Definimos a pasta raiz para testes (igual a sources neste caso)
             -Dsonar.tests=src
             # Define quais arquivos DENTRO de sonar.tests (a pasta 'src') são considerados testes
-            -Dsonar.test.inclusions=**/*.spec.ts,**/*.test.ts # >>> VERIFIQUE SE ESTES SÃO OS PADRÕES CORRETOS DOS SEUS ARQUIVOS DE TESTE <<<
+            -Dsonar.test.inclusions=**/*.spec.ts,**/*.test.ts
             # Exclusões globais - inclui pastas geradas e arquivos de configuração/dotfiles na raiz que não devem ser analisados.
             # Inclua AQUI quaisquer outros arquivos na raiz que causaram o erro "can't be indexed twice".
             -Dsonar.exclusions=**/node_modules/**,**/dist/**,.env,.eslintrc.cjs,*.config.js,*.config.ts,*.config.cjs,tsconfig*.json,package.json,package-lock.json,.gitattributes,.gitignore,.editorconfig,LICENSE,README.md
             # Caminho para o relatório LCOV gerado pelo 'npm run coverage' - assume que está em ./coverage/lcov.info
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info # >>> VERIFIQUE SE ESTE É O CAMINHO CORRETO DO SEU RELATÓRIO LCOV <<<
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             # --- Relatórios de Execução de Teste (Opcional) ---
             # Se seu script de teste também gerar um relatório JUnit XML, descomente e ajuste o caminho:
-            # -Dsonar.testExecutionReportPaths=test-report.xml # >>> AJUSTE O CAMINHO SE USAR <<<
+            # -Dsonar.testExecutionReportPaths=test-report.xml
 
       # --- PASSO DE UPLOAD DO ARTEFATO PARA DEPLOY ---
       # Este passo prepara os arquivos de build para serem usados pela job de deploy.
@@ -101,7 +101,6 @@ jobs:
     needs: build-analyze-upload
     # Roda apenas se a ref for o branch principal (evita deploy em PRs)
     if: github.ref == 'refs/heads/main'
-    # >>> Aplica o ambiente de deploy NO NÍVEL DA JOB <<<
     environment: github-pages
 
     steps:
