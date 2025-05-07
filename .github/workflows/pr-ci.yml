@@ -53,7 +53,7 @@ jobs:
         with:
           # Caminho para o relatório LCOV gerado pelo Vitest.
           # Verifique se este caminho está correto na sua pasta coverage/
-          coverage-path: coverage/lcov.info # <-- Aponte para o seu relatório LCOV
+          coverage-path: coverage/lcov.info
           # Formato do relatório (lcov é o que o Vitest gera por padrão)
           coverage-format: lcov
           # Outras opções de configuração (opcional):
