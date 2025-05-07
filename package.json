@@ -18,7 +18,7 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-pattern .gitignore",
     "format": "prettier --write ./",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "@intlify/unplugin-vue-i18n": "^6.0.8",
