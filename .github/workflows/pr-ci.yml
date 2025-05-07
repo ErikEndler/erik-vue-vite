@@ -48,7 +48,7 @@ jobs:
       # --- NOVA ETAPA: Publicar Tabela de Cobertura no PR ---
       # Usa a ação para ler o relatório lcov.info e postar um comentário no PR.
       - name: Publicar Tabela de Cobertura no PR
-        uses: MishaKav/export-coverage-to-comment@v1
+        uses: MishaKav/export-coverage-to-comment@v2
         with:
           # Caminho para o relatório LCOV gerado pelo Vitest.
           # Verifique se este caminho está correto na sua pasta coverage/
