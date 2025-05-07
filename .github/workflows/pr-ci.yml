@@ -1,0 +1,69 @@
+# Workflow: Pull Request CI & SonarCloud Analysis
+name: PR CI & Analysis
+
+on:
+  # Roda APENAS em Pull Requests tendo o branch principal como base
+  pull_request:
+    branches: ['main']
+
+# Define as permissões do GITHUB_TOKEN necessárias para o SonarCloud PR decoration
+permissions:
+  contents: read
+  id-token: write
+  # NENHUMA permissão de 'pages: write' aqui, pois não há deploy
+
+# Permite apenas uma execução concorrente por Pull Request
+concurrency:
+  # Usa o número do Pull Request para agrupar, cancelando execuções antigas do mesmo PR
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  # --- JOB: Build, Test, Analyze (para PRs) ---
+  build-test-analyze-pr:
+    runs-on: ubuntu-latest
+    # NENHUM environment é aplicado a esta job
+
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Instalar Dependências
+        run: npm install
+
+      # --- Passo de Testes de Cobertura ---
+      - name: Rodar Testes e Gerar Relatórios (Cobertura e Execução)
+        # Roda o script que gera cobertura (lcov.info) e relatório de execução (sonar-report.xml)
+        run: npm run coverage
+
+      - name: Build do Projeto (Opcional em PRs, mas bom para verificar)
+        run: npm run build
+
+      # --- PASSO DE ANÁLISE DO SONARCLOUD PARA PULL REQUEST ---
+      # Esta análise roda em PRs para fornecer feedback e Quality Gate status.
+      - name: Análise do SonarCloud (PR)
+        uses: SonarSource/sonarcloud-github-action@v2.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          # Arguments para o Sonar Scanner. Ajustados com base nas correções:
+          args: >
+            -Dsonar.projectKey=ErikEndler_erik-vue-vite 
+            -Dsonar.organization=erikendler
+            -Dsonar.sources=src
+            -Dsonar.tests=src
+            -Dsonar.test.inclusions=**/*.spec.ts,**/*.test.ts
+            -Dsonar.exclusions=**/node_modules/**,**/dist/**,.env,.eslintrc.cjs,*.config.js,*.config.ts,*.config.cjs,tsconfig*.json,package.json,package-lock.json,.gitattributes,.gitignore,.editorconfig,LICENSE,README.md
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.testExecutionReportPaths=sonar-report.xml
+
+      # NENHUM passo de deploy ou upload de artefato nesta job de PR.
