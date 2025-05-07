@@ -76,8 +76,7 @@ jobs:
             -Dsonar.test.inclusions=**/*.spec.ts,**/*.test.ts
             -Dsonar.exclusions=**/node_modules/**,**/dist/**,.env,.eslintrc.cjs,*.config.js,*.config.ts,*.config.cjs,tsconfig*.json,package.json,package-lock.json,.gitattributes,.gitignore,.editorconfig,LICENSE,README.md
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-            # Se usar relatório JUnit XML, descomente APENAS a linha abaixo e ajuste o caminho:
-            # -Dsonar.testExecutionReportPaths=test-report.xml
+            -Dsonar.testExecutionReportPaths=junit.xml
 
       # --- PASSO DE UPLOAD DO ARTEFATO PARA DEPLOY ---
       # Este passo prepara os arquivos de build para serem usados pela job de deploy.

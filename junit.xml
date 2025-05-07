@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="29" failures="0" errors="0" time="0.4216371">
+    <testsuite name="src/components/__tests__/LanguageSwitcher.spec.ts" timestamp="2025-05-07T18:53:50.015Z" hostname="DESKTOP-BTBEKER" tests="3" failures="0" errors="0" skipped="0" time="0.0185985">
+        <testcase classname="src/components/__tests__/LanguageSwitcher.spec.ts" name="mount component: LanguageSwitcher &gt; renders properly" time="0.0025053">
+        </testcase>
+        <testcase classname="src/components/__tests__/LanguageSwitcher.spec.ts" name="mount component: LanguageSwitcher &gt; renders supported locales in select" time="0.0006518">
+        </testcase>
+        <testcase classname="src/components/__tests__/LanguageSwitcher.spec.ts" name="mount component: LanguageSwitcher &gt; change select" time="0.0141939">
+            <system-err>
+Failed to switch language: Error: Unknown variable dynamic import: ./locales/.json
+    at [90mF:\dev\erik-vue-vite\[39mvite\dynamic-import-helper.js:10:9
+    at new Promise (&lt;anonymous&gt;)
+    at __vite_ssr_exports__.default [90m(F:\dev\erik-vue-vite\[39mvite\dynamic-import-helper.js:6:10[90m)[39m
+    at Object.loadLocaleMessages [90m(F:\dev\erik-vue-vite\[39msrc\i18n\translation.ts:30:61[90m)[39m
+    at Object.switchLanguage [90m(F:\dev\erik-vue-vite\[39msrc\i18n\translation.ts:22:17[90m)[39m
+    at Proxy.switchLanguage [90m(F:\dev\erik-vue-vite\[39msrc\components\LanguageSwitcher.vue:11:14[90m)[39m
+    at Proxy.mockCall [90m(file:///F:/dev/erik-vue-vite/[39mnode_modules/[4m@vitest[24m/spy/dist/index.js:66:15[90m)[39m
+    at Proxy.switchLanguage [90m(file:///F:/dev/erik-vue-vite/[39mnode_modules/[4mtinyspy[24m/dist/index.js:45:80[90m)[39m
+    at onChange._cache.&lt;computed&gt;._cache.&lt;computed&gt; [90m(F:\dev\erik-vue-vite\[39msrc\components\LanguageSwitcher.vue:23:76[90m)[39m
+    at callWithErrorHandling [90m(F:\dev\erik-vue-vite\[39mnode_modules\[4m@vue[24m\runtime-core\dist\runtime-core.cjs.js:200:19[90m)[39m
+
+Failed to switch language: Error: Unknown variable dynamic import: ./locales/.json
+    at [90mF:\dev\erik-vue-vite\[39mvite\dynamic-import-helper.js:10:9
+    at new Promise (&lt;anonymous&gt;)
+    at __vite_ssr_exports__.default [90m(F:\dev\erik-vue-vite\[39mvite\dynamic-import-helper.js:6:10[90m)[39m
+    at Object.loadLocaleMessages [90m(F:\dev\erik-vue-vite\[39msrc\i18n\translation.ts:30:61[90m)[39m
+    at Object.switchLanguage [90m(F:\dev\erik-vue-vite\[39msrc\i18n\translation.ts:22:17[90m)[39m
+    at Proxy.switchLanguage [90m(F:\dev\erik-vue-vite\[39msrc\components\LanguageSwitcher.vue:11:14[90m)[39m
+    at Proxy.mockCall [90m(file:///F:/dev/erik-vue-vite/[39mnode_modules/[4m@vitest[24m/spy/dist/index.js:66:15[90m)[39m
+    at Proxy.switchLanguage [90m(file:///F:/dev/erik-vue-vite/[39mnode_modules/[4mtinyspy[24m/dist/index.js:45:80[90m)[39m
+    at onChange._cache.&lt;computed&gt;._cache.&lt;computed&gt; [90m(F:\dev\erik-vue-vite\[39msrc\components\LanguageSwitcher.vue:23:76[90m)[39m
+    at callWithErrorHandling [90m(F:\dev\erik-vue-vite\[39mnode_modules\[4m@vue[24m\runtime-core\dist\runtime-core.cjs.js:200:19[90m)[39m
+
+            </system-err>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/__tests__/ModalConfirme.spec.ts" timestamp="2025-05-07T18:53:50.016Z" hostname="DESKTOP-BTBEKER" tests="3" failures="0" errors="0" skipped="0" time="0.0205022">
+        <testcase classname="src/components/__tests__/ModalConfirme.spec.ts" name="mount component: ModalConfirme &gt; renders properly" time="0.0041309">
+        </testcase>
+        <testcase classname="src/components/__tests__/ModalConfirme.spec.ts" name="mount component: ModalConfirme &gt; click close button" time="0.0128673">
+        </testcase>
+        <testcase classname="src/components/__tests__/ModalConfirme.spec.ts" name="mount component: ModalConfirme &gt; click confirm button" time="0.0021709">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/__tests__/NavBar.spec.ts" timestamp="2025-05-07T18:53:50.017Z" hostname="DESKTOP-BTBEKER" tests="7" failures="0" errors="0" skipped="0" time="0.0615345">
+        <testcase classname="src/components/__tests__/NavBar.spec.ts" name="mount component: LanguageSwitcher &gt; renders properly" time="0.0280005">
+        </testcase>
+        <testcase classname="src/components/__tests__/NavBar.spec.ts" name="mount component: LanguageSwitcher &gt; click Home" time="0.0103441">
+        </testcase>
+        <testcase classname="src/components/__tests__/NavBar.spec.ts" name="mount component: LanguageSwitcher &gt; click SimpLe Form" time="0.0047282">
+        </testcase>
+        <testcase classname="src/components/__tests__/NavBar.spec.ts" name="mount component: LanguageSwitcher &gt; click Modals" time="0.003809">
+        </testcase>
+        <testcase classname="src/components/__tests__/NavBar.spec.ts" name="mount component: LanguageSwitcher &gt; click Tip Calculator" time="0.0036225">
+        </testcase>
+        <testcase classname="src/components/__tests__/NavBar.spec.ts" name="mount component: LanguageSwitcher &gt; click Tip NavBar" time="0.0051807">
+        </testcase>
+        <testcase classname="src/components/__tests__/NavBar.spec.ts" name="mount component: LanguageSwitcher &gt; toggles navbar visibility" time="0.003944">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/__tests__/TextInput.spec.ts" timestamp="2025-05-07T18:53:50.019Z" hostname="DESKTOP-BTBEKER" tests="4" failures="0" errors="0" skipped="0" time="0.0545845">
+        <testcase classname="src/components/__tests__/TextInput.spec.ts" name="mount component: TextInput &gt; renders properly" time="0.0381758">
+        </testcase>
+        <testcase classname="src/components/__tests__/TextInput.spec.ts" name="mount component: TextInput &gt; input value" time="0.0043759">
+        </testcase>
+        <testcase classname="src/components/__tests__/TextInput.spec.ts" name="mount component: TextInput &gt; paste event" time="0.0091994">
+        </testcase>
+        <testcase classname="src/components/__tests__/TextInput.spec.ts" name="mount component: TextInput &gt; emits update:value on input change" time="0.001332">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/views/__tests__/HomeView.spec.ts" timestamp="2025-05-07T18:53:50.019Z" hostname="DESKTOP-BTBEKER" tests="3" failures="0" errors="0" skipped="0" time="0.0377264">
+        <testcase classname="src/views/__tests__/HomeView.spec.ts" name="mount component: HomeView &gt; renders properly" time="0.0012004">
+        </testcase>
+        <testcase classname="src/views/__tests__/HomeView.spec.ts" name="mount component: HomeView &gt; Click on btn &quot;Go Simple Form" time="0.0296512">
+            <system-out>
+[UI Store] Background class set to: bg-default
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/views/__tests__/HomeView.spec.ts" name="mount component: HomeView &gt; click on btn &quot;Go Modals" time="0.0047246">
+            <system-out>
+[UI Store] Background class set to: bg-default
+
+            </system-out>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/views/__tests__/SimpleForm.spec.ts" timestamp="2025-05-07T18:53:50.020Z" hostname="DESKTOP-BTBEKER" tests="5" failures="0" errors="0" skipped="0" time="0.1900296">
+        <testcase classname="src/views/__tests__/SimpleForm.spec.ts" name="mount component: SimpleForm &gt; renders properly" time="0.0020325">
+        </testcase>
+        <testcase classname="src/views/__tests__/SimpleForm.spec.ts" name="mount component: SimpleForm &gt; error msg fields" time="0.0676238">
+        </testcase>
+        <testcase classname="src/views/__tests__/SimpleForm.spec.ts" name="mount component: SimpleForm &gt; submit form invalid" time="0.0561113">
+        </testcase>
+        <testcase classname="src/views/__tests__/SimpleForm.spec.ts" name="mount component: SimpleForm &gt; success msg fields" time="0.0085226">
+        </testcase>
+        <testcase classname="src/views/__tests__/SimpleForm.spec.ts" name="mount component: SimpleForm &gt; submit form valid" time="0.0537437">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/views/__tests__/TipCalculator.spec.ts" timestamp="2025-05-07T18:53:50.021Z" hostname="DESKTOP-BTBEKER" tests="4" failures="0" errors="0" skipped="0" time="0.0386614">
+        <testcase classname="src/views/__tests__/TipCalculator.spec.ts" name="mount component: TipCalculator &gt; renders properly" time="0.001192">
+        </testcase>
+        <testcase classname="src/views/__tests__/TipCalculator.spec.ts" name="mount component: TipCalculator &gt; input value on field Bill, and calculate Tip correctly" time="0.013293">
+        </testcase>
+        <testcase classname="src/views/__tests__/TipCalculator.spec.ts" name="mount component: TipCalculator &gt; change % to 10s and calculate tip correctly" time="0.0177364">
+        </testcase>
+        <testcase classname="src/views/__tests__/TipCalculator.spec.ts" name="mount component: TipCalculator &gt; change number of people to 4 and calculate tip correctly" time="0.005094">
+        </testcase>
+    </testsuite>
+</testsuites>
