@@ -92,17 +92,17 @@ jobs:
       - name: Configurar GitHub Pages
         if: github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v3
-        environment: github-pages # Aplica o ambiente AQUI (VERIFIQUE NOME EXATO NO GITHUB)
-
+        environment: github-pages
+        
       - name: Upload Artifact para Pages
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist' # >>> VERIFIQUE SE ESTE É O CAMINHO CORRETO DA SUA PASTA DE BUILD <<<
-        environment: github-pages # Aplica o ambiente AQUI (VERIFIQUE NOME EXATO NO GITHUB)
+        environment: github-pages
 
       - name: Deploy para GitHub Pages
         if: github.ref == 'refs/heads/main'
         id: deployment
         uses: actions/deploy-pages@v2
-        environment: github-pages # Aplica o ambiente AQUI (VERIFIQUE NOME EXATO NO GITHUB)
+        environment: github-pages
