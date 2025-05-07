@@ -106,7 +106,7 @@ jobs:
     # Roda apenas se a ref for o branch principal (evita deploy em PRs)
     if: github.ref == 'refs/heads/main'
     # >>> Aplica o ambiente de deploy NO NÍVEL DA JOB <<<
-    environment: github-pages # >>> VERIFIQUE NOME EXATO NO GITHUB Settings > Environments <<<
+    environment: github-pages
 
     steps:
       # A job deploy-pages automaticamente tem acesso aos artefatos uploaded na job anterior
@@ -116,5 +116,5 @@ jobs:
       # Usa a ação de deploy para publicar o artefato uploaded na job anterior
       - name: Deploy para GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2 # Usa a ação para deploy do artefato uploaded
+        uses: actions/deploy-pages@v2
         # Não precisa da configuração 'environment' AQUI, pois já está no nível da job.
