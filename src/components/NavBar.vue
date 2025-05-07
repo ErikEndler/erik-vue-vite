@@ -3,6 +3,10 @@ import { computed, reactive } from 'vue'
 import router from '@/router'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 const state = reactive({
   showNavBar: false
 })
@@ -44,17 +48,17 @@ defineExpose({
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link" aria-current="page" id="homeNavLink" @click="goTo('Home')">{{
-                $t('nav.home')
+                t('nav.home')
               }}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="simpleFormNavLink" @click="goTo('SimpleForm')">{{
-                $t('nav.simple-form')
+                t('nav.simple-form')
               }}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="modalsNavLink" @click="goTo('Modals')">{{
-                $t('nav.modals')
+                t('nav.modals')
               }}</a>
             </li>
             <li class="nav-item">
@@ -71,11 +75,11 @@ defineExpose({
               id="input-search-nav-bar"
               class="form-control me-2"
               type="search"
-              :placeholder="$t('nav.search')"
+              :placeholder="t('nav.search')"
               aria-label="Search"
             />
             <button id="btn-search-nav-bar" class="btn btn-outline-success">
-              {{ $t('nav.search') }}
+              {{ t('nav.search') }}
             </button>
           </div>
         </div>

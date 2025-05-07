@@ -1,0 +1,107 @@
+# Workflow para Análise do SonarCloud e Deploy para GitHub Pages
+name: Build, Test, Analyze & Deploy
+
+on:
+  # Roda em pushes para o branch principal
+  push:
+    branches: ['main']
+
+  # Roda em Pull Requests tendo o branch principal como base
+  pull_request:
+    branches: ['main']
+    # Tipicamente, a análise em PRs é crucial, então rodar aqui é importante
+
+  # Permite rodar este workflow manualmente na aba Actions
+  workflow_dispatch:
+
+# Define as permissões do GITHUB_TOKEN necessárias para o deploy no GitHub Pages
+# e para que a ação do SonarCloud possa decorar o Pull Request (em PRs)
+permissions:
+  contents: read # Permite que o checkout leia o código
+  pages: write # Necessário para actions/deploy-pages
+  id-token: write # Necessário para a ação do SonarCloud se integrar com GitHub (para PR decoration)
+
+# Permite apenas uma execução concorrente para cada grupo de workflow/PR
+concurrency:
+  # Sintaxe mais robusta: usa o número do PR (se for PR) ou o ID da execução (se for push/manual)
+  group: ${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  # --- JOB 1: Build, Test, Analyze & Upload Artifact (CI) ---
+  # Esta job roda em pushes e PRs. Realiza a CI completa e prepara o artefato para deploy.
+  build-analyze-upload:
+    runs-on: ubuntu-latest
+    # NENHUM environment é aplicado a esta job
+
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Instalar Dependências
+        run: npm install
+
+      # --- Passo de Testes de Cobertura ---
+      # Roda o script de cobertura do seu package.json. No runner Linux, o lcov.info deve gerar com barras normais.
+      - name: Rodar Testes e Gerar Relatório de Cobertura
+        # Comando para rodar seus testes que geram cobertura. No seu package.json, este é "coverage".
+        run: npm run coverage
+
+      - name: Build do Projeto
+        run: npm run build
+
+      # --- PASSO DE ANÁLISE DO SONARCLOUD ---
+      # Este passo roda a análise e envia os resultados para o SonarCloud.
+      # Ele precisa rodar após o build.
+      - name: Análise do SonarCloud
+        uses: SonarSource/sonarcloud-github-action@v2.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          # Arguments para o Sonar Scanner. Ajustados com base nas correções locais:
+          args: >
+            -Dsonar.projectKey=ErikEndler_erik-vue-vite
+            -Dsonar.organization=erikendler
+            -Dsonar.sources=src
+            -Dsonar.tests=src
+            -Dsonar.test.inclusions=**/*.spec.ts,**/*.test.ts
+            -Dsonar.exclusions=**/node_modules/**,**/dist/**,.env,.eslintrc.cjs,*.config.js,*.config.ts,*.config.cjs,tsconfig*.json,package.json,package-lock.json,.gitattributes,.gitignore,.editorconfig,LICENSE,README.md
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.testExecutionReportPaths=sonar-report.xml
+
+      # --- PASSO DE UPLOAD DO ARTEFATO PARA DEPLOY ---
+      # Este passo prepara os arquivos de build para serem usados pela job de deploy.
+      - name: Upload Artifact para GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+  # --- JOB 2: Deploy para GitHub Pages (CD) ---
+  # Esta job só roda APÓS o sucesso da job build-analyze-upload E apenas em pushes para o branch principal.
+  deploy-pages:
+    runs-on: ubuntu-latest
+    # Define que esta job depende da job build-analyze-upload
+    needs: build-analyze-upload
+    # Roda apenas se a ref for o branch principal (evita deploy em PRs)
+    if: github.ref == 'refs/heads/main'
+    environment: github-pages
+
+    steps:
+      # A job deploy-pages automaticamente tem acesso aos artefatos uploaded na job anterior
+      # Não precisa de checkout, setup-node, install, test, build novamente
+
+      # --- PASSO DE DEPLOY ---
+      # Usa a ação de deploy para publicar o artefato uploaded na job anterior
+      - name: Deploy para GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+        # Não precisa da configuração 'environment' AQUI, pois já está no nível da job.

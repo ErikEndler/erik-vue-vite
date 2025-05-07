@@ -8,7 +8,7 @@ import { useI18n } from 'vue-i18n'
 import { useUiStore } from '@/stores/uiStore'
 
 const modal = useModal()
-const { t } = useI18n()
+const { t, n } = useI18n()
 
 const uiStore = useUiStore()
 const pageBackgroundClass = 'bg-tip-calculator'
@@ -86,11 +86,11 @@ defineExpose({ state })
                 classInput="input-tip"
                 nameProp="bill"
                 type="number"
-                :label="$t('tipCalculator.fields.bill')"
+                :label="t('tipCalculator.fields.bill')"
                 placeholder="0"
                 id="bill"
               />
-              <label class="mt-4" for="percent">{{ $t('tipCalculator.fields.selectTip') }}</label>
+              <label class="mt-4" for="percent">{{ t('tipCalculator.fields.selectTip') }}</label>
               <div class="row mt-3 row-cols-3">
                 <div class="col-4">
                   <button
@@ -156,7 +156,7 @@ defineExpose({ state })
                     type="button"
                   >
                     <span v-if="state.tipCustom > 0">{{ state.tipCustom }}%</span>
-                    <span v-else> {{ $t('tipCalculator.fields.custom') }}</span>
+                    <span v-else> {{ t('tipCalculator.fields.custom') }}</span>
                   </button>
                 </div>
               </div>
@@ -166,7 +166,7 @@ defineExpose({ state })
                 classInput="input-tip"
                 nameProp="people"
                 type="number"
-                :label="$t('tipCalculator.fields.numberOfPeople')"
+                :label="t('tipCalculator.fields.numberOfPeople')"
                 placeholder="0"
                 id="people"
               />
@@ -177,20 +177,20 @@ defineExpose({ state })
           <div class="card card-3">
             <div class="row my-5 card-3-child">
               <div class="row result-label">
-                {{ $t('tipCalculator.fields.tipAmount') }} <br />
-                {{ $t('tipCalculator.fields./person') }}
+                {{ t('tipCalculator.fields.tipAmount') }} <br />
+                {{ t('tipCalculator.fields./person') }}
               </div>
               <div class="row text-coin result">
-                {{ $n(state.tipPerson, 'currencyFormat') }}
+                {{ n(state.tipPerson, 'currencyFormat') }}
               </div>
             </div>
             <div class="row my-3 card-3-child">
               <div class="row result-label">
-                {{ $t('tipCalculator.fields.total') }} <br />
-                {{ $t('tipCalculator.fields./person') }}
+                {{ t('tipCalculator.fields.total') }} <br />
+                {{ t('tipCalculator.fields./person') }}
               </div>
               <div class="row text-coin result">
-                {{ $n(state.personTotal, 'currencyFormat') }}
+                {{ n(state.personTotal, 'currencyFormat') }}
               </div>
             </div>
           </div>
@@ -213,10 +213,6 @@ defineExpose({ state })
 </template>
 
 <style scoped lang="scss">
-:global(body) {
-  background-color: var(--Light-grayish-cyan) !important;
-  background: var(--Light-grayish-cyan) !important;
-}
 .page-tipe {
   font-family: 'Space Mono', monospace;
   background-color: var(--Light-grayish-cyan) !important;

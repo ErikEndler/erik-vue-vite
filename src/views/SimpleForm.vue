@@ -9,7 +9,7 @@ import { reactive, toRef, onMounted } from 'vue'
 import services from '@/services'
 import type { SimpleForm } from '@/types/Interfaces'
 import ListSimpleForm from '@/components/ListSimpleForm.vue'
-import { useUiStore } from '@/stores/uiStore' // Importe o hook da store
+import { useUiStore } from '@/stores/uiStore'
 
 const uiStore = useUiStore()
 
@@ -74,10 +74,10 @@ defineExpose({ onInvalidSubmit, onSubmit, schema })
     <div class="row align-items-center teste">
       <div class="col align-self-center text-center info">
         <h1>
-          <b>{{ $t('simpleForm.title') }}</b>
+          <b>{{ t('simpleForm.title') }}</b>
         </h1>
         <p>
-          {{ $t('simpleForm.description') }}
+          {{ t('simpleForm.description') }}
         </p>
       </div>
       <div class="col align-self-center text-center form">
@@ -92,36 +92,36 @@ defineExpose({ onInvalidSubmit, onSubmit, schema })
               id="nameInput"
               nameProp="name"
               type="text"
-              :label="$t('simpleForm.fields.label.name')"
-              :placeholder="$t('simpleForm.fields.placeholder.name')"
-              :success-message="$t('simpleForm.fields.successMessage.name')"
+              :label="t('simpleForm.fields.label.name')"
+              :placeholder="t('simpleForm.fields.placeholder.name')"
+              :success-message="t('simpleForm.fields.successMessage.name')"
             />
             <TextInput
               v-model:value="state.simpleForm.email"
               id="emailInput"
               nameProp="email"
               type="email"
-              :label="$t('simpleForm.fields.label.email')"
-              :placeholder="$t('simpleForm.fields.placeholder.email')"
-              :success-message="$t('simpleForm.fields.successMessage.email')"
+              :label="t('simpleForm.fields.label.email')"
+              :placeholder="t('simpleForm.fields.placeholder.email')"
+              :success-message="t('simpleForm.fields.successMessage.email')"
             />
             <TextInput
               v-model:value="state.simpleForm.passWord"
               id="passwordInput"
               nameProp="password"
               type="password"
-              :label="$t('simpleForm.fields.label.password')"
-              :placeholder="$t('simpleForm.fields.placeholder.password')"
-              :success-message="$t('simpleForm.fields.successMessage.password')"
+              :label="t('simpleForm.fields.label.password')"
+              :placeholder="t('simpleForm.fields.placeholder.password')"
+              :success-message="t('simpleForm.fields.successMessage.password')"
             />
             <TextInput
               v-model:value="state.simpleForm.confirmPassword"
               id="confirmPasswordInput"
               nameProp="confirmPassword"
               type="password"
-              :label="$t('simpleForm.fields.label.confirmPassword')"
-              :placeholder="$t('simpleForm.fields.placeholder.confirmPassword')"
-              :success-message="$t('simpleForm.fields.successMessage.confirmPassword')"
+              :label="t('simpleForm.fields.label.confirmPassword')"
+              :placeholder="t('simpleForm.fields.placeholder.confirmPassword')"
+              :success-message="t('simpleForm.fields.successMessage.confirmPassword')"
             />
 
             <button id="submitBtn" :class="invalid" class="submit-btn" type="submit">Submit</button>

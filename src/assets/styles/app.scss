@@ -4,7 +4,6 @@
 @import 'colors'; // Assume que define --Very-dark-blue, --Pale-Blue, --Primary-Red etc.
 
 body {
-  font-family: Poppins; // Pode remover se Inter for o principal abaixo
   // --- ESTILOS PADRÃO (correspondem a 'bg-default' na Store Pinia) ---
   background-color: var(--Very-dark-blue);
   background-image: none; // Boa prática definir explicitamente
@@ -53,14 +52,12 @@ body.bg-simple-form {
   background-image: url('@/assets/images/bg-intro-desktop.png');
   background-color: var(--Primary-Red); // Certifique-se que --Primary-Red está em colors.scss
   // Opcional: Sobrescrever a cor do texto se necessário para contraste
-  // color: white;
 }
 
 body.bg-tip-calculator {
   background-color: var(--Light-grayish-cyan);
   background-image: none; // Explicitamente sem imagem
   // Opcional: Se precisar mudar a cor do texto para contraste
-  // color: var(--Very-dark-blue);
 }
 
 // --- FIM DAS CLASSES DE BACKGROUND ---
