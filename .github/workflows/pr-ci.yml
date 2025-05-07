@@ -59,11 +59,11 @@ jobs:
           args: >
             -Dsonar.projectKey=ErikEndler_erik-vue-vite 
             -Dsonar.organization=erikendler
-            -Dsonar.sources=src # Define a pasta raiz para fontes E testes
-            -Dsonar.tests=src # Define a pasta raiz para testes
-            -Dsonar.test.inclusions=**/*.spec.ts,**/*.test.ts 
+            -Dsonar.sources=src
+            -Dsonar.tests=src
+            -Dsonar.test.inclusions=**/*.spec.ts,**/*.test.ts
             -Dsonar.exclusions=**/node_modules/**,**/dist/**,.env,.eslintrc.cjs,*.config.js,*.config.ts,*.config.cjs,tsconfig*.json,package.json,package-lock.json,.gitattributes,.gitignore,.editorconfig,LICENSE,README.md
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info # Caminho do relatório LCOV
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.testExecutionReportPaths=sonar-report.xml
 
       # NENHUM passo de deploy ou upload de artefato nesta job de PR.
