@@ -31,3 +31,7 @@ coverage
 
 # SonarQube/SonarCloud Scanner working directory
 .scannerwork/
+
+# Ignorar relatórios de execução de teste
+junit.xml
+sonar-report.xml

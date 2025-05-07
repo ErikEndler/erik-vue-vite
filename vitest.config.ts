@@ -1,6 +1,7 @@
 import { fileURLToPath } from 'node:url'
 import { mergeConfig, defineConfig, configDefaults } from 'vitest/config'
 import viteConfig from './vite.config.js'
+import customReporter from 'vitest-sonar-reporter'
 
 export default mergeConfig(
   viteConfig,
@@ -10,14 +11,13 @@ export default mergeConfig(
       environment: 'jsdom',
       exclude: [...configDefaults.exclude, 'e2e/*'],
       root: fileURLToPath(new URL('./', import.meta.url)),
-      reporters: ['default', 'junit'],
+      reporters: ['default', new customReporter()],
       coverage: {
         provider: 'v8', // istanbul or 'v8'
-        // --- Adicione esta linha para especificar os formatos dos relatórios ---
         reporter: ['text', 'lcov', 'json', 'html']
       },
       outputFile: {
-        junit: './junit.xml' // <-- Define que o reporter 'junit' deve salvar em './junit.xml' (na raiz)
+        'vitest-sonar-reporter': './sonar-report.xml'
       }
     },
     css: {
