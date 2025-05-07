@@ -30,14 +30,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-analyze:
+  # --- JOB 1: Build, Test, Analyze & Upload Artifact (CI) ---
+  # Esta job roda em pushes e PRs. Realiza a CI completa e prepara o artefato para deploy.
+  build-analyze-upload:
     runs-on: ubuntu-latest
+    # NENHUM environment é aplicado a esta job
 
     steps:
       - name: Checkout do Código
         uses: actions/checkout@v4
         with:
-          # Fetch-depth 0 é necessário para a análise do SonarCloud (histórico completo do Git)
           fetch-depth: 0
 
       - name: Configurar Node.js
@@ -88,27 +90,31 @@ jobs:
             # Se gerar JUnit XML, descomente e ajuste o caminho:
             # -Dsonar.testExecutionReportPaths=test-report.xml
 
-      # --- PASSO DE DEPLOY (Só roda em PUSH para o branch principal) ---
-      # Estes passos são os mesmos que você já tem para deploy no GitHub Pages.
-      # A condição 'if' garante que eles NÃO rodem em Pull Requests.
-      - name: Configurar GitHub Pages
-        # Roda apenas se for um push para 'main'
-        if: github.ref == 'refs/heads/main'
-        uses: actions/configure-pages@v3
-        environment: github-pages
-
-      - name: Upload Artifact para Pages
-        # Roda apenas se for um push para 'main'
-        if: github.ref == 'refs/heads/main'
+      # --- PASSO DE UPLOAD DO ARTEFATO PARA DEPLOY ---
+      # Este passo prepara os arquivos de build para serem usados pela job de deploy.
+      - name: Upload Artifact para GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          # Caminho para sua pasta de build
           path: './dist'
-        environment: github-pages
 
+  # --- JOB 2: Deploy para GitHub Pages (CD) ---
+  # Esta job só roda APÓS o sucesso da job build-analyze-upload E apenas em pushes para o branch principal.
+  deploy-pages:
+    runs-on: ubuntu-latest
+    # Define que esta job depende da job build-analyze-upload
+    needs: build-analyze-upload
+    # Roda apenas se a ref for o branch principal (evita deploy em PRs)
+    if: github.ref == 'refs/heads/main'
+    # >>> Aplica o ambiente de deploy NO NÍVEL DA JOB <<<
+    environment: github-pages # >>> VERIFIQUE NOME EXATO NO GITHUB Settings > Environments <<<
+
+    steps:
+      # A job deploy-pages automaticamente tem acesso aos artefatos uploaded na job anterior
+      # Não precisa de checkout, setup-node, install, test, build novamente
+
+      # --- PASSO DE DEPLOY ---
+      # Usa a ação de deploy para publicar o artefato uploaded na job anterior
       - name: Deploy para GitHub Pages
-        # Roda apenas se for um push para 'main'
-        if: github.ref == 'refs/heads/main'
         id: deployment
-        uses: actions/deploy-pages@v2
-        environment: github-pages
+        uses: actions/deploy-pages@v2 # Usa a ação para deploy do artefato uploaded
+        # Não precisa da configuração 'environment' AQUI, pois já está no nível da job.
