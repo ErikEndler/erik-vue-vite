@@ -32,9 +32,6 @@ concurrency:
 jobs:
   build-and-analyze:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout do Código
@@ -98,6 +95,7 @@ jobs:
         # Roda apenas se for um push para 'main'
         if: github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v3
+        environment: github-pages
 
       - name: Upload Artifact para Pages
         # Roda apenas se for um push para 'main'
@@ -106,9 +104,11 @@ jobs:
         with:
           # Caminho para sua pasta de build
           path: './dist'
+        environment: github-pages
 
       - name: Deploy para GitHub Pages
         # Roda apenas se for um push para 'main'
         if: github.ref == 'refs/heads/main'
         id: deployment
         uses: actions/deploy-pages@v2
+        environment: github-pages
