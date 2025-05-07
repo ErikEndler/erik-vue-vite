@@ -71,19 +71,12 @@ jobs:
           args: >
             -Dsonar.projectKey=ErikEndler_erik-vue-vite
             -Dsonar.organization=erikendler
-            # Definimos a pasta raiz para fontes E testes (onde estão os arquivos)
             -Dsonar.sources=src
-            # Definimos a pasta raiz para testes (igual a sources neste caso)
             -Dsonar.tests=src
-            # Define quais arquivos DENTRO de sonar.tests (a pasta 'src') são considerados testes
             -Dsonar.test.inclusions=**/*.spec.ts,**/*.test.ts
-            # Exclusões globais - inclui pastas geradas e arquivos de configuração/dotfiles na raiz que não devem ser analisados.
-            # Inclua AQUI quaisquer outros arquivos na raiz que causaram o erro "can't be indexed twice".
             -Dsonar.exclusions=**/node_modules/**,**/dist/**,.env,.eslintrc.cjs,*.config.js,*.config.ts,*.config.cjs,tsconfig*.json,package.json,package-lock.json,.gitattributes,.gitignore,.editorconfig,LICENSE,README.md
-            # Caminho para o relatório LCOV gerado pelo 'npm run coverage' - assume que está em ./coverage/lcov.info
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-            # --- Relatórios de Execução de Teste (Opcional) ---
-            # Se seu script de teste também gerar um relatório JUnit XML, descomente e ajuste o caminho:
+            # Se usar relatório JUnit XML, descomente APENAS a linha abaixo e ajuste o caminho:
             # -Dsonar.testExecutionReportPaths=test-report.xml
 
       # --- PASSO DE UPLOAD DO ARTEFATO PARA DEPLOY ---
