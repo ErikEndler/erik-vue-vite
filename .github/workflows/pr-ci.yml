@@ -10,6 +10,7 @@ on:
 permissions:
   contents: read
   id-token: write
+  pull-requests: write
   # NENHUMA permissão de 'pages: write' aqui, pois não há deploy
 
 # Permite apenas uma execução concorrente por Pull Request
@@ -22,7 +23,6 @@ jobs:
   # --- JOB: Build, Test, Analyze (para PRs) ---
   build-test-analyze-pr:
     runs-on: ubuntu-latest
-    # NENHUM environment é aplicado a esta job
 
     steps:
       - name: Checkout do Código
@@ -43,6 +43,16 @@ jobs:
       - name: Rodar Testes e Gerar Relatórios (Cobertura e Execução)
         # Roda o script que gera cobertura (lcov.info) e relatório de execução (sonar-report.xml)
         run: npm run coverage
+
+      # --- NOVA ETAPA: Publicar Tabela de Cobertura no PR ---
+      # Usa a ação para ler o relatório lcov.info e postar um comentário no PR.
+      - name: Publicar Tabela de Cobertura no PR
+        uses: coverallsapp/github-action@v1
+        with:
+          # Caminho para o relatório LCOV gerado pelo Vitest.
+          path-to-lcov: coverage/lcov.info
+          # Token do GitHub para autenticação
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build do Projeto (Opcional em PRs, mas bom para verificar)
         run: npm run build
