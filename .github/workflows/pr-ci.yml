@@ -23,7 +23,6 @@ jobs:
   # --- JOB: Build, Test, Analyze (para PRs) ---
   build-test-analyze-pr:
     runs-on: ubuntu-latest
-    # NENHUM environment é aplicado a esta job
 
     steps:
       - name: Checkout do Código
@@ -48,19 +47,12 @@ jobs:
       # --- NOVA ETAPA: Publicar Tabela de Cobertura no PR ---
       # Usa a ação para ler o relatório lcov.info e postar um comentário no PR.
       - name: Publicar Tabela de Cobertura no PR
-        uses: MishaKav/export-coverage-to-comment@main
-
+        uses: coverallsapp/github-action@v1
         with:
           # Caminho para o relatório LCOV gerado pelo Vitest.
-          # Verifique se este caminho está correto na sua pasta coverage/
-          coverage-path: coverage/lcov.info
-          # Formato do relatório (lcov é o que o Vitest gera por padrão)
-          coverage-format: lcov
-          # Outras opções de configuração (opcional):
-          # title: 'Relatório de Cobertura' # Título opcional para o comentário
-          # summary-title: 'Resumo da Cobertura' # Título opcional para o resumo
-          # hide-comment: true # Esconde o comentário se a cobertura não mudar
-          # create-new-comment: true # Sempre cria um novo comentário em vez de atualizar
+          path-to-lcov: coverage/lcov.info
+          # Token do GitHub para autenticação
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build do Projeto (Opcional em PRs, mas bom para verificar)
         run: npm run build
